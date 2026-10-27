@@ -1,0 +1,78 @@
+{
+ "ville": "Sherbrooke",
+ "code_municipalite": "43027",
+ "annee_role": 2026,
+ "source": "MSSS (2015), « Exploration d'une méthodologie d'identification de terrains avec un potentiel de colonisation par l'herbe à poux : une approche cartographique d'utilisation du sol », publication 14-244-03W",
+ "source_donnees": "Rôle d'évaluation foncière, ministère des Affaires municipales et de l'Habitation (CC-BY 4.0)",
+ "avertissement": "Ces catégories désignent des terrains à inspecter, non des terrains colonisés. Le rapport dont elles sont issues conclut que leur potentiel de colonisation ne se compare pas d'un territoire à l'autre : le classement établi pour une ville ne se transpose pas telle quelle à une autre.",
+ "terrains": 6655,
+ "geometrie": "points de localisation des unités d'évaluation",
+ "categories": [
+  {
+   "cle": "vacants",
+   "libelle": "Terrains vacants",
+   "couleur": "#c9a227",
+   "description": "Terrains non aménagés et non exploités : boisés, friches.",
+   "terrains": 4574
+  },
+  {
+   "cle": "industriels",
+   "libelle": "Terrains industriels",
+   "couleur": "#8a5a8f",
+   "description": "Ensemble des codes de type industriel, sans distinction.",
+   "terrains": 228
+  },
+  {
+   "cle": "commerciaux",
+   "libelle": "Terrains commerciaux",
+   "couleur": "#c86d3c",
+   "description": "Commerces de biens et services possédant généralement une cour d'entreposage, par exemple les vendeurs de véhicules.",
+   "terrains": 198
+  },
+  {
+   "cle": "services_utilite_publique",
+   "libelle": "Services d'utilité publique",
+   "couleur": "#7b8a93",
+   "description": "Infrastructures de transport, de distribution de l'énergie, d'hygiène et de communications.",
+   "terrains": 335
+  },
+  {
+   "cle": "institutionnels",
+   "libelle": "Terrains institutionnels",
+   "couleur": "#4a7fa8",
+   "description": "Bâtiments religieux, scolaires, résidences pour personnes âgées et établissements du réseau de la santé.",
+   "terrains": 310
+  },
+  {
+   "cle": "recreatifs",
+   "libelle": "Terrains récréatifs",
+   "couleur": "#4a9c62",
+   "description": "Terrains de jeux, parcs et autres terrains à caractère sportif, à l'exclusion des terrains de golf.",
+   "terrains": 169
+  },
+  {
+   "cle": "residentiels_haute_densite",
+   "libelle": "Résidentiels haute densité",
+   "couleur": "#b0475f",
+   "description": "Terrains portant des bâtiments d'au moins douze logements.",
+   "terrains": 841
+  }
+ ],
+ "confrontation_observations": {
+  "observations": 5462,
+  "seuil_m": 100.0,
+  "a_proximite": 2875,
+  "part": 52.6,
+  "part_hasard": 0.8,
+  "distance_mediane_m": 95.4,
+  "par_categorie": {
+   "residentiels_haute_densite": 288,
+   "recreatifs": 99,
+   "vacants": 1844,
+   "services_utilite_publique": 375,
+   "commerciaux": 92,
+   "institutionnels": 110,
+   "industriels": 67
+  }
+ }
+}

@@ -1,0 +1,152 @@
+{
+ "auc_hors_pli": 0.604,
+ "seuil_t1": 0.0592,
+ "f1_max": 0.6075,
+ "presences": 1640,
+ "pseudo_absences": 2297,
+ "blocs_spatiaux": 172,
+ "covariables": [
+  "dist_routes",
+  "elevation",
+  "ndvi",
+  "occupation",
+  "swi"
+ ],
+ "importance": {
+  "occupation": 0.2824,
+  "dist_routes": 0.2511,
+  "elevation": 0.2015,
+  "ndvi": 0.158,
+  "swi": 0.107
+ },
+ "variogramme": {
+  "modele": "exponentiel",
+  "pepite": 0.00779,
+  "palier": 0.23305,
+  "portee_m": 749.3,
+  "part_structuree": 0.968
+ },
+ "derive": {
+  "intercept": 0.2734,
+  "pente": 0.3804
+ },
+ "resolution_m": 20.0,
+ "cellules": 919219,
+ "reference_essai": {
+  "auteur": "Wilfix Sagard",
+  "titre": "Cartographie prédictive du risque lié à l'herbe à poux (Ambrosia artemisiifolia L.) à Sherbrooke",
+  "depot": "mai 2026",
+  "modele_retenu": "XGB–KED",
+  "roc_auc": 0.83,
+  "seuil_t1": 0.36,
+  "resolution": "10 m"
+ },
+ "ecarts": [
+  "Élévation : modèle numérique de terrain canadien (≈ 20 m) au lieu du MNT LiDAR municipal (≈ 1 m) — ce qui affecte aussi l'indice d'humidité topographique qui en dérive.",
+  "Occupation du sol : affectation municipale seule, sans la couche provinciale du MRNF avec laquelle l'essai la fusionne.",
+  "NDVI : médiane de quelques scènes Sentinel-2 estivales au lieu d'un composite Google Earth Engine complet.",
+  "Résolution de sortie de 20 m au lieu de 10 m.",
+  "Outils : Python (xgboost, implémentation directe du krigeage) au lieu de R (xgboost, gstat) ; graine aléatoire différente.",
+  "Volume : les parcours GPS disponibles totalisent environ 396 km et ne permettent pas d'atteindre le ratio 1:2,1 de l'essai. La déduplication à la cellule de 20 m réduit par ailleurs les présences davantage qu'à 10 m."
+ ],
+ "avertissement": "Reproduction indépendante du protocole publié, et non les cartes de l'essai. Les valeurs diffèrent de celles de l'auteur.",
+ "parts": {
+  "prediction_probabilite": {
+   "tres_faible": 37.63,
+   "faible": 19.6,
+   "moderee": 21.74,
+   "elevee": 11.41,
+   "tres_elevee": 9.62
+  },
+  "prediction_incertitude": {
+   "faible": 8.27,
+   "moderee": 9.52,
+   "elevee": 30.57,
+   "tres_elevee": 51.64
+  },
+  "prediction_decision": {
+   "prioritaire": 33.77,
+   "a_valider": 43.18,
+   "surveillance": 16.23,
+   "angle_mort": 6.82
+  }
+ },
+ "seuil_incertitude": 0.7537,
+ "classes": {
+  "probabilite": [
+   {
+    "cle": "tres_faible",
+    "libelle": "Très faible",
+    "couleur": "#f2f6f3"
+   },
+   {
+    "cle": "faible",
+    "libelle": "Faible",
+    "couleur": "#cfe3d2"
+   },
+   {
+    "cle": "moderee",
+    "libelle": "Modérée",
+    "couleur": "#94c8a2"
+   },
+   {
+    "cle": "elevee",
+    "libelle": "Élevée",
+    "couleur": "#4a9c62"
+   },
+   {
+    "cle": "tres_elevee",
+    "libelle": "Très élevée",
+    "couleur": "#1b6b34"
+   }
+  ],
+  "incertitude": [
+   {
+    "cle": "faible",
+    "libelle": "Faible",
+    "couleur": "#eef3f7"
+   },
+   {
+    "cle": "moderee",
+    "libelle": "Modérée",
+    "couleur": "#b8cfe0"
+   },
+   {
+    "cle": "elevee",
+    "libelle": "Élevée",
+    "couleur": "#6a9cc4"
+   },
+   {
+    "cle": "tres_elevee",
+    "libelle": "Très élevée",
+    "couleur": "#2c5f88"
+   }
+  ],
+  "decision": [
+   {
+    "cle": "prioritaire",
+    "libelle": "Intervention prioritaire",
+    "couleur": "#a4404f",
+    "description": "Probabilité élevée et incertitude faible : secteurs à traiter en premier."
+   },
+   {
+    "cle": "a_valider",
+    "libelle": "À valider sur le terrain",
+    "couleur": "#e9b44c",
+    "description": "Probabilité élevée mais incertitude forte : une visite de terrain tranchera."
+   },
+   {
+    "cle": "surveillance",
+    "libelle": "Surveillance minimale",
+    "couleur": "#8fbf9f",
+    "description": "Probabilité faible et incertitude faible : suivi de routine suffisant."
+   },
+   {
+    "cle": "angle_mort",
+    "libelle": "Angle mort du dispositif",
+    "couleur": "#7b8a93",
+    "description": "Probabilité faible mais incertitude forte : le dispositif de collecte renseigne mal ces secteurs."
+   }
+  ]
+ }
+}

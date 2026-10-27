@@ -1,0 +1,150 @@
+{
+ "source_climat": "CanDCSU6 — Environnement et Changement climatique Canada (scénarios CMIP6 mis à l'échelle, résolution ≈ 9 km)",
+ "source_observations": "iNaturalist — observations de qualité recherche, Québec",
+ "reference": "1971-2000",
+ "scenarios": {
+  "SSP126": {
+   "nom": "SSP1-2.6",
+   "libelle": "Faibles émissions"
+  },
+  "SSP245": {
+   "nom": "SSP2-4.5",
+   "libelle": "Émissions intermédiaires"
+  },
+  "SSP585": {
+   "nom": "SSP5-8.5",
+   "libelle": "Fortes émissions"
+  }
+ },
+ "horizons": [
+  "2021-2050",
+  "2041-2070",
+  "2071-2100"
+ ],
+ "bande": {
+  "p10": 17.89,
+  "p25": 17.9,
+  "p50": 18.01,
+  "p75": 18.09,
+  "p90": 19.53
+ },
+ "plafond_connu": 19.99,
+ "classes": [
+  {
+   "cle": "trop_frais",
+   "libelle": "Trop frais",
+   "couleur": "#dbe7f0"
+  },
+  {
+   "cle": "analogue",
+   "libelle": "Climat analogue",
+   "couleur": "#2d6a4f"
+  },
+  {
+   "cle": "plus_chaud",
+   "libelle": "Plus chaud que la bande",
+   "couleur": "#e9b44c"
+  },
+  {
+   "cle": "hors_analogue",
+   "libelle": "Au-delà du climat connu",
+   "couleur": "#a4404f"
+  }
+ ],
+ "parts": {
+  "reference": {
+   "trop_frais": 92.83,
+   "analogue": 6.76,
+   "plus_chaud": 0.41,
+   "hors_analogue": 0.0
+  },
+  "SSP126_2021-2050": {
+   "trop_frais": 64.92,
+   "analogue": 25.33,
+   "plus_chaud": 3.68,
+   "hors_analogue": 6.07
+  },
+  "SSP126_2041-2070": {
+   "trop_frais": 57.46,
+   "analogue": 26.85,
+   "plus_chaud": 6.63,
+   "hors_analogue": 9.06
+  },
+  "SSP126_2071-2100": {
+   "trop_frais": 56.91,
+   "analogue": 25.06,
+   "plus_chaud": 7.7,
+   "hors_analogue": 10.33
+  },
+  "SSP245_2021-2050": {
+   "trop_frais": 63.61,
+   "analogue": 25.27,
+   "plus_chaud": 4.29,
+   "hors_analogue": 6.82
+  },
+  "SSP245_2041-2070": {
+   "trop_frais": 49.33,
+   "analogue": 28.28,
+   "plus_chaud": 7.75,
+   "hors_analogue": 14.64
+  },
+  "SSP245_2071-2100": {
+   "trop_frais": 26.65,
+   "analogue": 38.29,
+   "plus_chaud": 6.9,
+   "hors_analogue": 28.16
+  },
+  "SSP585_2021-2050": {
+   "trop_frais": 59.88,
+   "analogue": 24.73,
+   "plus_chaud": 6.98,
+   "hors_analogue": 8.41
+  },
+  "SSP585_2041-2070": {
+   "trop_frais": 28.22,
+   "analogue": 36.58,
+   "plus_chaud": 7.12,
+   "hors_analogue": 28.07
+  },
+  "SSP585_2071-2100": {
+   "trop_frais": 0.65,
+   "analogue": 11.27,
+   "plus_chaud": 7.0,
+   "hors_analogue": 81.09
+  }
+ },
+ "temperature_mediane": {
+  "reference": 15.12,
+  "SSP126_2021-2050": 17.04,
+  "SSP126_2041-2070": 17.56,
+  "SSP126_2071-2100": 17.54,
+  "SSP245_2021-2050": 17.13,
+  "SSP245_2041-2070": 17.92,
+  "SSP245_2071-2100": 18.78,
+  "SSP585_2021-2050": 17.34,
+  "SSP585_2041-2070": 18.72,
+  "SSP585_2071-2100": 21.36
+ },
+ "calibration": {
+  "presences": 9422,
+  "fond": 20000,
+  "groupe_cible": "Asteraceae (taxon 47604)",
+  "diagnostic_biais": {
+   "tete": {
+    "court": "T. estivale",
+    "unite": "°C",
+    "ecart_effort": -0.56
+   },
+   "tminprint": {
+    "court": "T. min. printemps",
+    "unite": "°C",
+    "ecart_effort": -0.19
+   },
+   "precipete": {
+    "court": "Précip. été",
+    "unite": "mm",
+    "ecart_effort": 56.16
+   }
+  }
+ }
+}

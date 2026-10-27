@@ -1,0 +1,147 @@
+{
+ "auc_hors_pli": 0.815,
+ "seuil_t1": 0.2778,
+ "f1_max": 0.7346,
+ "presences": 975,
+ "pseudo_absences": 1293,
+ "blocs_spatiaux": 179,
+ "covariables": [
+  "dist_routes",
+  "elevation",
+  "ndvi",
+  "occupation",
+  "swi"
+ ],
+ "importance": {
+  "dist_routes": 0.4583,
+  "elevation": 0.2064,
+  "ndvi": 0.1971,
+  "swi": 0.0843,
+  "occupation": 0.0539
+ },
+ "variogramme": {
+  "modele": "exponentiel",
+  "pepite": 0.00392,
+  "palier": 0.15282,
+  "portee_m": 835.4,
+  "part_structuree": 0.975
+ },
+ "derive": {
+  "intercept": 0.128,
+  "pente": 0.7762
+ },
+ "resolution_m": 20.0,
+ "cellules": 1167975,
+ "ville": "Québec",
+ "comparable_essai": false,
+ "reference_essai": null,
+ "ecarts": [
+  "Élévation : modèle numérique de terrain canadien (≈ 20 m) au lieu du MNT LiDAR municipal (≈ 1 m) — ce qui affecte aussi l'indice d'humidité topographique qui en dérive.",
+  "NDVI : médiane de quelques scènes Sentinel-2 estivales au lieu d'un composite Google Earth Engine complet.",
+  "Résolution de sortie de 20 m au lieu de 10 m.",
+  "Outils : Python (xgboost, implémentation directe du krigeage) au lieu de R (xgboost, gstat) ; graine aléatoire différente.",
+  "Territoire : l'essai porte sur Sherbrooke. Les covariables, le protocole et les seuils sont les siens, mais aucun résultat publié ne permet de confronter cette carte.",
+  "Occupation du sol : couche provinciale d'utilisation du territoire (MELCCFP, 2020, 10 m), la Ville de Québec ne publiant pas d'affectation du sol. Sherbrooke, elle, utilise son affectation municipale : les deux cartes ne reposent donc pas sur la même covariable d'occupation.",
+  "Volume : les parcours GPS de la campagne 2026 totalisent environ 248 km, contre 396 km à Sherbrooke."
+ ],
+ "avertissement": "Protocole de l'essai appliqué à un territoire qu'il ne couvrait pas. Aucune valeur publiée ne permet de juger ce résultat : il sert de point de départ, non de référence.",
+ "parts": {
+  "prediction_probabilite": {
+   "tres_faible": 30.19,
+   "faible": 13.48,
+   "moderee": 14.56,
+   "elevee": 14.82,
+   "tres_elevee": 26.96
+  },
+  "prediction_incertitude": {
+   "faible": 10.11,
+   "moderee": 83.28,
+   "elevee": 4.95,
+   "tres_elevee": 1.67
+  },
+  "prediction_decision": {
+   "prioritaire": 31.71,
+   "a_valider": 32.72,
+   "surveillance": 18.25,
+   "angle_mort": 17.32
+  }
+ },
+ "seuil_incertitude": 0.4033,
+ "classes": {
+  "probabilite": [
+   {
+    "cle": "tres_faible",
+    "libelle": "Très faible",
+    "couleur": "#f2f6f3"
+   },
+   {
+    "cle": "faible",
+    "libelle": "Faible",
+    "couleur": "#cfe3d2"
+   },
+   {
+    "cle": "moderee",
+    "libelle": "Modérée",
+    "couleur": "#94c8a2"
+   },
+   {
+    "cle": "elevee",
+    "libelle": "Élevée",
+    "couleur": "#4a9c62"
+   },
+   {
+    "cle": "tres_elevee",
+    "libelle": "Très élevée",
+    "couleur": "#1b6b34"
+   }
+  ],
+  "incertitude": [
+   {
+    "cle": "faible",
+    "libelle": "Faible",
+    "couleur": "#eef3f7"
+   },
+   {
+    "cle": "moderee",
+    "libelle": "Modérée",
+    "couleur": "#b8cfe0"
+   },
+   {
+    "cle": "elevee",
+    "libelle": "Élevée",
+    "couleur": "#6a9cc4"
+   },
+   {
+    "cle": "tres_elevee",
+    "libelle": "Très élevée",
+    "couleur": "#2c5f88"
+   }
+  ],
+  "decision": [
+   {
+    "cle": "prioritaire",
+    "libelle": "Intervention prioritaire",
+    "couleur": "#a4404f",
+    "description": "Probabilité élevée et incertitude faible : secteurs à traiter en premier."
+   },
+   {
+    "cle": "a_valider",
+    "libelle": "À valider sur le terrain",
+    "couleur": "#e9b44c",
+    "description": "Probabilité élevée mais incertitude forte : une visite de terrain tranchera."
+   },
+   {
+    "cle": "surveillance",
+    "libelle": "Surveillance minimale",
+    "couleur": "#8fbf9f",
+    "description": "Probabilité faible et incertitude faible : suivi de routine suffisant."
+   },
+   {
+    "cle": "angle_mort",
+    "libelle": "Angle mort du dispositif",
+    "couleur": "#7b8a93",
+    "description": "Probabilité faible mais incertitude forte : le dispositif de collecte renseigne mal ces secteurs."
+   }
+  ]
+ }
+}

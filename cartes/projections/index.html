@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Projections climatiques — Cartographie participative de l'herbe à poux</title>
+	<meta name="description"
+		content="Déplacement de la bande climatique de l'herbe à poux au Québec selon les scénarios climatiques SSP, horizons 2021-2050, 2041-2070 et 2071-2100.">
+	<meta name="theme-color" content="#1e5f74">
+
+	<script src="https://cdn.jsdelivr.net/npm/ol@v9.0.0/dist/ol.js"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v9.0.0/ol.css">
+	<script src="https://kit.fontawesome.com/101507ea8a.js" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="../sherbrooke/css/projet.css">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+	<!-- Bandeau de projet -->
+	<header id="bandeau-projet">
+		<a id="bandeau-retour" href="../../index.html" title="Retour à la page du projet">
+			<i class="fas fa-arrow-left"></i><span>Le projet</span>
+		</a>
+
+		<div id="bandeau-identite">
+			<i class="fas fa-earth-americas" aria-hidden="true"></i>
+			<div>
+				<div id="bandeau-titre">Cartographie participative de l'herbe à poux</div>
+				<div id="bandeau-sous-titre">Projections climatiques &mdash; <strong>sud et centre du
+						Québec</strong></div>
+			</div>
+		</div>
+
+		<nav id="bandeau-villes" aria-label="Autres cartes">
+			<a class="ville-onglet" href="../sherbrooke/index.html">Sherbrooke</a>
+			<a class="ville-onglet" href="../montreal/index.html">Montréal</a>
+			<a class="ville-onglet" href="../quebec/index.html">Québec</a>
+			<span class="ville-onglet active" aria-current="page">Projections</span>
+		</nav>
+	</header>
+
+	<!-- Indicateurs de la combinaison affichée -->
+	<div id="kpi-bar">
+		<div class="kpi"><span class="kpi-valeur" id="kpi-analogue">—</span><span class="kpi-libelle">du territoire
+				au climat analogue</span></div>
+		<div class="kpi"><span class="kpi-valeur" id="kpi-hors">—</span><span class="kpi-libelle">au-delà du climat
+				connu</span></div>
+		<div class="kpi"><span class="kpi-valeur" id="kpi-temp">—</span><span class="kpi-libelle">température
+				estivale médiane</span></div>
+		<div class="kpi-etat kpi-etat-chargement" id="kpi-etat">Chargement…</div>
+	</div>
+
+	<div class="main-container">
+
+		<!-- Panneau de commande -->
+		<aside id="commandes">
+
+			<section class="bloc">
+				<h2>Scénario d'émissions</h2>
+				<div id="choix-scenario" class="segments"></div>
+				<p class="aide" id="aide-scenario"></p>
+			</section>
+
+			<section class="bloc">
+				<h2>Horizon</h2>
+				<div id="choix-horizon" class="segments vertical"></div>
+				<button id="lecture" class="bouton-lecture">
+					<i class="fas fa-play" aria-hidden="true"></i> <span>Dérouler les horizons</span>
+				</button>
+			</section>
+
+			<section class="bloc">
+				<h2>Légende</h2>
+				<ul id="legende" class="legende"></ul>
+				<label class="bascule">
+					<input type="checkbox" id="voir-observations"> Observations d'ambroisie
+				</label>
+			</section>
+
+			<section class="bloc encadre-methode">
+				<h2><i class="fas fa-circle-info" aria-hidden="true"></i> Comment lire cette carte</h2>
+				<p>
+					La carte montre <strong>où se trouvera le climat estival</strong> qu'ont aujourd'hui les lieux
+					où l'ambroisie est observée. Ce n'est pas une prédiction de présence : ni l'occupation du sol,
+					ni la dispersion de la plante, ni la concurrence ou l'adaptation n'entrent dans le calcul.
+				</p>
+				<p id="note-biais"></p>
+				<p>
+					La couche de probabilité de présence issue du modèle de distribution en préparation viendra
+					remplacer celle-ci.
+				</p>
+				<p class="source" id="sources"></p>
+			</section>
+
+		</aside>
+
+		<!-- Carte -->
+		<div id="map">
+			<div id="titre-carte"><span id="titre-scenario">—</span><span id="titre-horizon">—</span></div>
+			<div id="scale-container"></div>
+		</div>
+	</div>
+
+	<script src="js/carte.js"></script>
+</body>
+
+</html>

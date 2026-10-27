@@ -1,0 +1,14 @@
+# Fins de ligne normalisées dans le dépôt : le site est déployé sur des
+# serveurs Linux, et sans cette règle les fichiers y arriveraient en CRLF.
+* text=auto eol=lf
+
+# Les données et les images ne sont pas du texte : les toucher les corromprait.
+*.geojson -text
+*.json    -text
+*.jpg     binary
+*.JPG     binary
+*.png     binary
+*.PNG     binary
+*.tif     binary
+*.woff    binary
+*.woff2   binary

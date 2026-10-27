@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Cartographie participative de l'herbe à poux — INSPQ / Université de Sherbrooke</title>
+	<meta name="description"
+		content="Projet pilote de cartographie participative de l'ambroisie (herbe à poux) au Québec : science citoyenne, intelligence artificielle et cartographie web pour Sherbrooke, Montréal et Québec.">
+	<meta name="theme-color" content="#1e5f74">
+	<link rel="stylesheet" href="assets/css/site.css">
+	<script src="https://kit.fontawesome.com/101507ea8a.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+	<!-- ============================ EN-TÊTE ============================ -->
+	<header class="site">
+		<div class="entete">
+			<a class="marque" href="index.html">
+				<i class="fas fa-seedling" aria-hidden="true"></i>
+				<div>
+					<div class="marque-nom">Ambroisie Québec</div>
+					<div class="marque-sous">Cartographie participative de l'herbe à poux</div>
+				</div>
+			</a>
+			<nav class="principale">
+				<a href="#probleme">Le problème</a>
+				<a href="#approche">L'approche</a>
+				<a href="#villes">Les cartes</a>
+				<a href="#travaux">Travaux</a>
+				<a href="#avancement">Avancement</a>
+				<a href="#suivi">Suivi</a>
+				<a href="#equipe">Équipe</a>
+				<div class="menu-cartes">
+					<button type="button" class="bouton bouton-primaire" id="menu-cartes-bouton"
+						aria-haspopup="true" aria-expanded="false" aria-controls="menu-cartes-liste">
+						<i class="fas fa-map-location-dot" aria-hidden="true"></i> Ouvrir une carte
+						<i class="fas fa-chevron-down menu-cartes-fleche" aria-hidden="true"></i>
+					</button>
+					<div class="menu-cartes-liste" id="menu-cartes-liste" role="menu" hidden>
+						<a role="menuitem" href="cartes/sherbrooke/index.html">Sherbrooke</a>
+						<a role="menuitem" href="cartes/montreal/index.html">Montréal</a>
+						<a role="menuitem" href="cartes/quebec/index.html">Québec</a>
+						<a role="menuitem" href="cartes/projections/index.html">Projections climatiques</a>
+					</div>
+				</div>
+			</nav>
+		</div>
+	</header>
+
+	<main>
+
+		<!-- ============================ HERO ============================ -->
+		<section class="hero">
+			<div class="hero-contenu">
+				<span class="hero-etiquette">Projet pilote — INSPQ &amp; Université de Sherbrooke</span>
+				<h1>Cartographier l'herbe à poux avec le public et l'intelligence artificielle</h1>
+				<p class="hero-sous-titre">
+					Un outil de cartographie collaborative pour détecter, suivre et prédire la présence de
+					l'ambroisie (<em>Ambrosia artemisiifolia</em>) au Québec, et guider les opérations de contrôle
+					là où la population est la plus exposée.
+				</p>
+				<div class="hero-actions">
+					<a class="bouton bouton-primaire" href="#villes">
+						<i class="fas fa-map-location-dot" aria-hidden="true"></i>
+						Explorer les tableaux de bord
+					</a>
+					<a class="bouton bouton-secondaire" href="https://inaturalist.ca" target="_blank" rel="noopener">
+						<i class="fas fa-camera" aria-hidden="true"></i>
+						Contribuer via iNaturalist
+					</a>
+				</div>
+			</div>
+		</section>
+
+		<!-- ======================= CHIFFRES CLÉS ======================= -->
+		<section class="chiffres" aria-label="Chiffres clés du projet">
+			<div class="chiffre">
+				<div class="chiffre-valeur">50 – 90 %</div>
+				<div class="chiffre-libelle">des symptômes de rhinite allergique saisonnière sont attribuables au
+					pollen d'ambroisie</div>
+				<div class="chiffre-source">Source : INSPQ</div>
+			</div>
+			<div class="chiffre">
+				<div class="chiffre-valeur">9,5 % → 13,1 %</div>
+				<div class="chiffre-libelle">prévalence de la rhinite allergique saisonnière au Québec chez les
+					15 ans et plus, de 1998 à 2014-2015</div>
+				<div class="chiffre-source">Hausse de près de 40 % en 20 ans</div>
+			</div>
+			<div class="chiffre">
+				<div class="chiffre-valeur">42 → 63 jours</div>
+				<div class="chiffre-libelle">durée de la saison pollinique à Montréal entre 1994 et 2002, soit une
+					hausse de 33 %</div>
+				<div class="chiffre-source">Effet des changements climatiques</div>
+			</div>
+			<div class="chiffre">
+				<div class="chiffre-valeur">157 – 240 M$</div>
+				<div class="chiffre-libelle">coût annuel estimé en santé au Québec, l'ambroisie touchant jusqu'à
+					17 % de la population adulte</div>
+				<div class="chiffre-source">Estimation reprise des travaux du projet</div>
+			</div>
+			<div class="chiffre">
+				<div class="chiffre-valeur accent" id="compteur-observations">—</div>
+				<div class="chiffre-libelle">observations déjà cartographiées sur le territoire de Sherbrooke</div>
+				<div class="chiffre-source" id="compteur-source">Chargement…</div>
+			</div>
+		</section>
+
+		<!-- ========================= LE PROBLÈME ========================= -->
+		<section class="section" id="probleme">
+			<div class="contenu">
+				<span class="surtitre">Comprendre le problème</span>
+				<h2 class="section-titre">Un enjeu de santé publique dont on ne connaît plus la géographie</h2>
+
+				<div class="deux-colonnes">
+					<div>
+						<p>
+							L'herbe à poux dégage un pollen fortement allergène, à l'origine de rhinites et de crises
+							d'asthme. Sa présence au Québec constitue un problème de santé publique majeur, et son
+							contrôle mobilise des budgets importants à toutes les échelles, de la municipalité à la
+							province.
+						</p>
+						<p>
+							Les projections climatiques convergent : la hausse des températures accroît l'adéquation
+							de l'habitat de l'ambroisie et sa répartition géographique devrait s'étendre à l'horizon
+							2050, particulièrement en Amérique du Nord. En milieu urbain, des températures et des
+							concentrations de CO<sub>2</sub> plus élevées la font pousser plus vite, fleurir plus tôt
+							et produire davantage de pollen.
+						</p>
+						<p>
+							Or les données manquent. La dernière cartographie de densité au Québec remonte à 2001. Sans
+							connaissance à jour de la distribution spatiale de la plante, les municipalités ne peuvent
+							pas cibler efficacement leurs interventions d'éradication, généralement réalisées entre le
+							15 juillet et le 15 août, avant la libération du pollen.
+						</p>
+					</div>
+
+					<div>
+						<div class="encadre">
+							<h3><i class="fas fa-satellite" aria-hidden="true"></i> Pourquoi pas le satellite&nbsp;?</h3>
+							<p>
+								Un projet antérieur de l'INSPQ (2017-2018) a montré que l'imagerie satellitaire seule ne
+								permet pas de cartographier l'ambroisie avec la précision requise : résolution spatiale
+								trop grossière et signature spectrale trop proche de celle des autres plantes.
+							</p>
+							<p>
+								La recommandation de fin de projet ouvrait la voie à l'approche retenue ici : la
+								cartographie participative combinée à l'intelligence artificielle.
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- ========================== L'APPROCHE ========================== -->
+		<section class="section section-alt" id="approche">
+			<div class="contenu">
+				<span class="surtitre">Méthodologie</span>
+				<h2 class="section-titre">De la photo citoyenne à la carte de prédiction</h2>
+				<p class="section-chapeau">
+					Cinq maillons enchaînés, appuyés sur la plateforme ouverte iNaturalist plutôt que sur une
+					infrastructure construite de zéro : les données sont validées par une communauté déjà active,
+					et les produits finaux sont conçus pour s'intégrer au Géoportail de l'INSPQ.
+				</p>
+
+				<div class="chaine">
+					<div class="etape">
+						<div class="etape-numero">1</div>
+						<h3>Collecte participative</h3>
+						<p>Photos géolocalisées prises par le public et par les assistants de recherche, versées dans
+							un projet iNaturalist dédié.</p>
+						<span class="pastille pastille-cours">En cours</span>
+					</div>
+					<div class="etape">
+						<div class="etape-numero">2</div>
+						<h3>Validation</h3>
+						<p>Protocole de validation par des spécialistes et par la communauté, pour ne conserver que les
+							observations avérées.</p>
+						<span class="pastille pastille-cours">En cours</span>
+					</div>
+					<div class="etape">
+						<div class="etape-numero">3</div>
+						<h3>Vision par ordinateur</h3>
+						<p>Réseau de neurones convolutif entraîné sur les photos validées. Modèle validé et intégré
+							à l'application mobile HerbDetect.</p>
+						<span class="pastille pastille-cours">Validé à Sherbrooke</span>
+					</div>
+					<div class="etape">
+						<div class="etape-numero">4</div>
+						<h3>Modèle de prédiction</h3>
+						<p>Modèle reliant les observations aux variables géospatiales ouvertes : occupation du sol,
+							NDVI, distance aux routes, élévation, humidité topographique.</p>
+						<span class="pastille pastille-cours">Validé à Sherbrooke</span>
+					</div>
+					<div class="etape">
+						<div class="etape-numero">5</div>
+						<h3>Diffusion cartographique</h3>
+						<p>Cartes d'observation et de prédiction diffusées aux décideurs, dans un format intégrable au
+							Géoportail de l'INSPQ.</p>
+						<span class="pastille pastille-cours">Observations en ligne</span>
+					</div>
+				</div>
+
+				<div class="deux-colonnes" style="margin-top:44px">
+					<div>
+						<h3 style="font-size:19px">Où l'effort est concentré</h3>
+						<p>
+							L'ambroisie pousse sur les sols perturbés ou dénudés : terrains vagues, stationnements,
+							emprises routières, chantiers, dépôts à neige, abords de pistes cyclables et de voies
+							ferrées. Les campagnes terrain ciblent en priorité ces milieux, dans un rayon d'un
+							kilomètre autour des zones habitées.
+						</p>
+						<p>
+							Une attention particulière est portée aux quartiers défavorisés (4<sup>e</sup> et
+							5<sup>e</sup> quintiles), où ces types de terrains sont plus fréquents et où la population
+							est en outre davantage exposée aux polluants atmosphériques qui aggravent l'allergénicité
+							des pollens.
+						</p>
+					</div>
+					<div>
+						<div class="encadre encadre-note">
+							<h3><i class="fas fa-users" aria-hidden="true"></i> Une science ouverte</h3>
+							<p>
+								Toutes les données et tous les outils de développement sont de sources ouvertes, et les
+								produits cartographiques suivent les normes de l'Open Geospatial Consortium. Le recours à
+								iNaturalist permet l'accumulation des données au-delà de la durée du financement.
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- ============================ VILLES ============================ -->
+		<section class="section" id="villes">
+			<div class="contenu">
+				<span class="surtitre">Sites d'étude</span>
+				<h2 class="section-titre">Trois villes, un même gabarit cartographique</h2>
+				<p class="section-chapeau">
+					Montréal, Québec et Sherbrooke ont été retenues comme premiers sites d'étude, en raison de leur
+					densité de population et des collaborations existantes avec leurs gestionnaires en géomatique.
+					Les trois tableaux de bord sont désormais en ligne : ils partagent le même moteur cartographique
+					et se distinguent par les jeux de données que publie chaque municipalité. Leur niveau de détail
+					diffère donc, et l'interface l'assume plutôt que de le masquer.
+				</p>
+
+				<div class="villes">
+
+					<article class="ville">
+						<div class="ville-visuel">
+							<img src="assets/img/apercu-sherbrooke.jpg"
+								alt="Aperçu du tableau de bord cartographique de Sherbrooke">
+							<span class="ville-statut en-ligne">En ligne</span>
+						</div>
+						<div class="ville-corps">
+							<h3>Sherbrooke</h3>
+							<div class="ville-meta">Milieu urbain, périurbain et rural — 4 arrondissements,
+								9 secteurs</div>
+							<div class="ville-compteur">
+								<strong id="compteur-sherbrooke">—</strong>
+								<span>observations cartographiées</span>
+							</div>
+							<p>
+								Tableau de bord analytique complet : observations iNaturalist, trajets de collecte,
+								types de sol, affectation du territoire, analyses par secteur et outil d'analyse par
+								zone tampon autour d'une adresse.
+							</p>
+							<a class="bouton bouton-primaire" href="cartes/sherbrooke/index.html">
+								<i class="fas fa-arrow-right" aria-hidden="true"></i> Ouvrir le tableau de bord
+							</a>
+						</div>
+					</article>
+
+					<article class="ville">
+						<div class="ville-visuel">
+							<img src="assets/img/apercu-montreal.jpg"
+								alt="Aperçu du tableau de bord de Montréal : observations groupées sur les 34 arrondissements">
+							<span class="ville-statut en-ligne">En ligne</span>
+						</div>
+						<div class="ville-corps">
+							<h3>Montréal</h3>
+							<div class="ville-meta">Milieu urbain dense — 34 arrondissements et villes liées</div>
+							<div class="ville-compteur">
+								<strong id="compteur-montreal">—</strong>
+								<span>observations cartographiées</span>
+							</div>
+							<p>
+								Tableau de bord en ligne : observations iNaturalist, limites administratives,
+								affectation du sol au plan d'urbanisme, réseau routier et 22 168 terrains à
+								potentiel de colonisation. La campagne encadrée par Alexandre Fredette y a
+								parcouru 178 km à l'été 2026, dont les trajets sont cartographiés : ils
+								montrent ce qui a été couvert, et ce qui reste à couvrir.
+							</p>
+							<a class="bouton bouton-primaire" href="cartes/montreal/index.html">
+								<i class="fas fa-arrow-right" aria-hidden="true"></i> Ouvrir le tableau de bord
+							</a>
+						</div>
+					</article>
+
+					<article class="ville">
+						<div class="ville-visuel">
+							<img src="assets/img/apercu-quebec.jpg"
+								alt="Aperçu du tableau de bord de Québec : observations groupées sur les 35 quartiers">
+							<span class="ville-statut en-ligne">En ligne</span>
+						</div>
+						<div class="ville-corps">
+							<h3>Québec</h3>
+							<div class="ville-meta">Milieu urbain et périurbain — 35 quartiers</div>
+							<div class="ville-compteur">
+								<strong id="compteur-quebec">—</strong>
+								<span>observations cartographiées</span>
+							</div>
+							<p>
+								Tableau de bord en ligne : observations iNaturalist, découpage par quartier,
+								voies publiques et 10 749 terrains à potentiel de colonisation. Les couches
+								proviennent des données ouvertes de la Ville ; la campagne de terrain de
+								l'été 2026 y a parcouru 248 km, dont les trajets sont cartographiés.
+							</p>
+							<a class="bouton bouton-primaire" href="cartes/quebec/index.html">
+								<i class="fas fa-arrow-right" aria-hidden="true"></i> Ouvrir le tableau de bord
+							</a>
+						</div>
+					</article>
+
+					<article class="ville">
+						<div class="ville-visuel">
+							<img src="assets/img/apercu-projections.jpg"
+								alt="Carte des projections climatiques sous SSP5-8.5 à l'horizon 2071-2100 : 81 % du territoire au-delà du climat connu">
+							<span class="ville-statut en-ligne">En ligne</span>
+						</div>
+						<div class="ville-corps">
+							<h3>Projections climatiques</h3>
+							<div class="ville-meta">Sud et centre du Québec &mdash; scénarios CMIP6, horizons 2050
+								à 2100</div>
+							<p>
+								Où se trouvera demain le climat estival qu'ont aujourd'hui les lieux où l'ambroisie est
+								observée. Trois scénarios d'émissions, trois horizons, et le signalement des zones dont
+								le climat futur n'a plus d'équivalent actuel au Québec.
+							</p>
+							<a class="bouton bouton-primaire" href="cartes/projections/index.html">
+								<i class="fas fa-arrow-right" aria-hidden="true"></i> Ouvrir la carte
+							</a>
+						</div>
+					</article>
+
+				</div>
+			</div>
+		</section>
+
+		<!-- =========================== TRAVAUX =========================== -->
+		<section class="section section-alt" id="travaux">
+			<div class="contenu">
+				<span class="surtitre">Résultats</span>
+				<h2 class="section-titre">Travaux réalisés et en cours</h2>
+				<p class="section-chapeau">
+					Trois essais de maîtrise déposés en mai 2026 couvrent les volets fondateurs du site pilote de
+					Sherbrooke : la modélisation prédictive, l'identification automatique et le tableau de bord. Un
+					quatrième travail, engagé à l'automne 2026, porte le passage à l'échelle provinciale.
+				</p>
+
+				<div class="travaux">
+
+					<article class="travail">
+						<span class="travail-etat">Essai déposé — mai 2026</span>
+						<h3>Cartographie prédictive du risque</h3>
+						<div class="travail-auteur"><strong>Wilfix Sagard</strong> — modélisation spatiale</div>
+						<ul class="travail-resultats">
+							<li>Chaînes de modélisation comparées <span class="valeur">6</span></li>
+							<li>Points d'entraînement <span class="valeur">15 850</span></li>
+							<li>Modèle retenu <span class="valeur">XGB–KED</span></li>
+							<li>ROC-AUC <span class="valeur">0,83</span></li>
+						</ul>
+						<p>
+							Krigeage ordinaire et universel, Random Forest, XGBoost et deux modèles hybrides à dérive
+							externe, évalués sur 5 124 présences validées et 10 726 pseudo-absences issues des parcours
+							GPS d'inventaire, par validation croisée spatiale par blocs.
+						</p>
+						<p>
+							L'apport principal est la transformation de la carte de probabilité en outil d'aide à la
+							décision : une carte croisée probabilité-incertitude distingue les zones d'intervention
+							prioritaire, les secteurs à valider sur le terrain, les zones de surveillance minimale et
+							les angles morts du dispositif de collecte.
+						</p>
+					</article>
+
+					<article class="travail">
+						<span class="travail-etat">Essai déposé — mai 2026</span>
+						<h3>Identification automatique par vision par ordinateur</h3>
+						<div class="travail-auteur"><strong>Omar Guettache</strong> — apprentissage profond</div>
+						<ul class="travail-resultats">
+							<li>Observations d'entraînement <span class="valeur">7 354</span></li>
+							<li>Espèces confondantes <span class="valeur">20</span></li>
+							<li>Exactitude <span class="valeur">99,72 %</span></li>
+							<li>Rappel sur <em>Ambrosia</em> <span class="valeur">100 %</span></li>
+						</ul>
+						<p>
+							Deux architectures légères, YOLO11n-cls et YOLO26n-cls, entraînées sur des photos prises au
+							téléphone à Sherbrooke, avec constitution rigoureuse d'une classe négative et prévention de
+							la fuite de données entre partitions.
+						</p>
+						<p>
+							L'analyse Grad-CAM confirme que le modèle s'appuie sur des caractéristiques botaniques
+							pertinentes et non sur le contexte de la photo. Le modèle est intégré à l'application
+							mobile <strong>HerbDetect</strong>, déployée sur Android.
+						</p>
+					</article>
+
+					<article class="travail">
+						<span class="travail-etat">Essai déposé — mai 2026</span>
+						<h3>Tableau de bord analytique</h3>
+						<div class="travail-auteur"><strong>Fritzno Louis</strong> — cartographie web</div>
+						<ul class="travail-resultats">
+							<li>Observations cartographiées <span class="valeur">5 384</span></li>
+							<li>Zones résidentielles <span class="valeur">37 %</span></li>
+							<li>Zones mixtes <span class="valeur">16 %</span></li>
+							<li>Sols de loam sableux <span class="valeur">48 %</span></li>
+						</ul>
+						<p>
+							Architecture entièrement libre — JavaScript, OpenLayers pour la cartographie interactive et
+							ECharts pour les visualisations — alimentée par des données prétraitées sous QGIS : types de
+							sol, affectation du territoire, arrondissements et secteurs.
+						</p>
+						<p>
+							Les résultats révèlent une distribution nettement anthropique, favorisée par les sols de
+							loam sableux et rocheux, tandis que les sols argileux en sont presque dépourvus. Le tableau
+							de bord constitue le gabarit désormais repris par Montréal et Québec.
+						</p>
+						<a class="bouton bouton-neutre" href="cartes/sherbrooke/index.html">
+							<i class="fas fa-arrow-right" aria-hidden="true"></i> Ouvrir le tableau de bord
+						</a>
+					</article>
+
+					<article class="travail travail-engage">
+						<span class="travail-etat">Travail engagé — automne 2026</span>
+						<h3>Modélisation provinciale et projections climatiques</h3>
+						<div class="travail-auteur"><strong>Mamadou Mashoud</strong> — maîtrise en géomatique appliquée
+						</div>
+						<div class="travail-corps">
+							<div>
+						<p>
+							Modélisation géospatiale de la distribution et de la dynamique spatio-temporelle de l'herbe à
+							poux <strong>à l'échelle du Québec</strong>, à partir de variables environnementales
+							multisources et de projections climatiques.
+						</p>
+						<p>
+							C'est ce travail qui porte le passage des trois sites pilotes à une couverture provinciale,
+							et qui vise à remplacer la cartographie de densité de 2001.
+						</p>
+							</div>
+							<div>
+						<ul style="font-size:14.5px; color:var(--gris-doux); padding-left:20px; margin-bottom:0">
+							<li>Préparer les observations et les variables environnementales : occupation du sol, indices
+								de végétation, données météorologiques, variables socioéconomiques.</li>
+							<li>Développer et valider un modèle d'apprentissage automatique expliquant et prédisant la
+								distribution actuelle.</li>
+							<li>Intégrer les projections climatiques pour simuler les conditions futures selon
+								différents scénarios.</li>
+							<li>Projeter la distribution future en identifiant les zones d'expansion, de densification
+								ou de régression.</li>
+							<li>Produire les cartes prédictives et les outils d'aide à la décision destinés à la
+								surveillance et à la gestion.</li>
+						</ul>
+							</div>
+						</div>
+						<a class="bouton bouton-neutre" href="cartes/projections/index.html">
+							<i class="fas fa-earth-americas" aria-hidden="true"></i>
+							Voir la carte des analogues climatiques
+						</a>
+					</article>
+
+				</div>
+
+				<div class="encadre encadre-note" style="margin-top:34px">
+					<h3><i class="fas fa-book" aria-hidden="true"></i> Consulter les essais</h3>
+					<p>
+						Les trois essais de maîtrise ont été déposés à la Faculté des lettres et sciences humaines de
+						l'Université de Sherbrooke. Ils sont disponibles sur demande auprès de l'équipe du projet.
+					</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- ========================== AVANCEMENT ========================== -->
+		<section class="section" id="avancement">
+			<div class="contenu">
+				<span class="surtitre">État d'avancement</span>
+				<h2 class="section-titre">Les cinq volets du projet</h2>
+				<p class="section-chapeau">
+					État des cinq volets à l'été 2026. Les volets fondateurs ont été menés à terme sur le site pilote
+					de Sherbrooke ; l'effort porte désormais sur l'extension à Québec et Montréal, puis à l'ensemble
+					du Québec.
+				</p>
+
+				<div class="volets">
+
+					<div class="volet">
+						<div class="volet-code">Volet 1</div>
+						<div>
+							<div class="volet-nom">Collecte et validation des photos</div>
+							<div class="volet-detail">Deux saisons de collecte achevées à Sherbrooke (2024 et 2025)
+								avec enregistrement des parcours GPS ; validation de qualité « recherche » sur
+								iNaturalist ; identification automatique opérationnelle.</div>
+						</div>
+						<div>
+							<div class="jauge"><span style="width:80%"></span></div>
+							<div class="jauge-etat">Sherbrooke terminé &mdash; Québec et Montréal à l'été 2026</div>
+						</div>
+					</div>
+
+					<div class="volet">
+						<div class="volet-code">Volet 2</div>
+						<div>
+							<div class="volet-nom">Modèles et cartes de prédiction</div>
+							<div class="volet-detail">Covariables harmonisées via Google Earth Engine à 10 m
+								(occupation du sol, NDVI Sentinel-2, distance aux routes, élévation, indice d'humidité
+								topographique) ; modèle hybride XGB&ndash;KED validé à Sherbrooke.</div>
+						</div>
+						<div>
+							<div class="jauge"><span style="width:65%"></span></div>
+							<div class="jauge-etat">Validé à Sherbrooke &mdash; adaptation aux deux autres sites</div>
+						</div>
+					</div>
+
+					<div class="volet">
+						<div class="volet-code">Volet 3</div>
+						<div>
+							<div class="volet-nom">Projections selon les scénarios climatiques</div>
+							<div class="volet-detail">Extraction des simulations climatiques d'OURANOS testée sur
+								Sherbrooke ; croisement des collectes avec les paramètres météorologiques.</div>
+						</div>
+						<div>
+							<div class="jauge"><span style="width:35%"></span></div>
+							<div class="jauge-etat">Carte des analogues climatiques en ligne &mdash; modélisation à l'automne</div>
+						</div>
+					</div>
+
+					<div class="volet">
+						<div class="volet-code">Volet 4</div>
+						<div>
+							<div class="volet-nom">Transfert et pérennisation</div>
+							<div class="volet-detail">Trois essais de maîtrise déposés ; outils collaboratifs
+								déployés ; code et méthodes documentés en vue du transfert aux partenaires.</div>
+						</div>
+						<div>
+							<div class="jauge"><span style="width:15%"></span></div>
+							<div class="jauge-etat">Formations prévues aux six derniers mois</div>
+						</div>
+					</div>
+
+					<div class="volet">
+						<div class="volet-code">Volet 5</div>
+						<div>
+							<div class="volet-nom">Gestion et communication</div>
+							<div class="volet-detail">Rapports d'avancement et rapports d'étape produits ; comités de
+								suivi tenus avec l'INSPQ ; recrutement et intégration des équipes successives.</div>
+						</div>
+						<div>
+							<div class="jauge"><span style="width:55%"></span></div>
+							<div class="jauge-etat">Continu sur toute la durée</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</section>
+
+		<!-- ============================ SUIVI ============================ -->
+		<section class="section" id="suivi">
+			<div class="contenu">
+				<span class="surtitre">Chronologie</span>
+				<h2 class="section-titre">Suivi du projet</h2>
+				<p class="section-chapeau">
+					Le contrat entre l'INSPQ et l'Université de Sherbrooke couvre la période du 1<sup>er</sup> juillet
+					2025 au 30 juin 2027, mais les travaux ont démarré dès l'été 2024. Des rapports d'avancement sont
+					produits aux deux mois et des rapports d'étape aux jalons semestriels.
+				</p>
+
+				<div class="deux-colonnes">
+					<div>
+						<ol class="frise">
+							<li class="jalon jalon-fait">
+								<div class="jalon-date">Juillet 2024</div>
+								<div class="jalon-texte">Démarrage des travaux : définition et caractérisation des sites
+									d'étude selon l'occupation du sol et leurs propriétés écologiques.</div>
+							</li>
+							<li class="jalon jalon-fait">
+								<div class="jalon-date">Juillet – novembre 2024</div>
+								<div class="jalon-texte">Ouverture du projet iNaturalist dédié et première campagne de
+									terrain à Sherbrooke.</div>
+							</li>
+							<li class="jalon jalon-fait">
+								<div class="jalon-date">5 février 2025</div>
+								<div class="jalon-texte">Premier comité de suivi avec l'INSPQ : avancement des activités
+									et présentation des travaux au premier jalon.</div>
+							</li>
+							<li class="jalon jalon-fait">
+								<div class="jalon-date">Été – automne 2025</div>
+								<div class="jalon-texte">Deuxième campagne à Sherbrooke, avec enregistrement des parcours
+									GPS pour cartographier autant l'absence que la présence.</div>
+							</li>
+							<li class="jalon jalon-fait">
+								<div class="jalon-date">Février 2026</div>
+								<div class="jalon-texte">Signature du contrat INSPQ – Université de Sherbrooke, couvrant
+									le 1<sup>er</sup> juillet 2025 au 30 juin 2027.</div>
+							</li>
+							<li class="jalon jalon-fait">
+								<div class="jalon-date">19 mars 2026</div>
+								<div class="jalon-texte">Rencontre de démarrage de l'équipe, suivie de réunions
+									hebdomadaires.</div>
+							</li>
+							<li class="jalon jalon-fait">
+								<div class="jalon-date">Mai 2026</div>
+								<div class="jalon-texte">Dépôt des trois essais de maîtrise et relève de l'équipe pour la
+									saison estivale.</div>
+							</li>
+							<li class="jalon jalon-fait">
+								<div class="jalon-date">Été 2026</div>
+								<div class="jalon-texte">Campagnes de collecte à Québec et Montréal ; évolution du tableau
+									de bord vers une interface unique multi-sites.</div>
+							</li>
+							<li class="jalon jalon-avenir">
+								<div class="jalon-date">Automne 2026</div>
+								<div class="jalon-texte">Renfort de l'équipe et lancement des travaux de modélisation à
+									l'échelle du Québec et de projection climatique.</div>
+							</li>
+							<li class="jalon jalon-avenir">
+								<div class="jalon-date">Juin 2027</div>
+								<div class="jalon-texte">Fin du projet pilote : transfert technologique, formations et
+									recommandations de mise à l'échelle provinciale.</div>
+							</li>
+						</ol>
+					</div>
+
+					<div>
+						<div class="encadre">
+							<h3><i class="fas fa-diagram-project" aria-hidden="true"></i> Outils de collaboration</h3>
+							<p>
+								Le projet s'appuie sur un espace de partage de données à l'Université de Sherbrooke, un
+								dépôt de code versionné et un serveur dédié hébergeant les services front-end et
+								back-end du tableau de bord.
+							</p>
+							<p>
+								Conformément à l'engagement de durabilité du projet, l'ensemble des données et des
+								outils de développement est de sources ouvertes, et les produits cartographiques suivent
+								les normes de l'Open Geospatial Consortium.
+							</p>
+						</div>
+
+						<div class="encadre encadre-note" style="margin-top:20px">
+							<h3><i class="fas fa-flag" aria-hidden="true"></i> Prochaine étape</h3>
+							<p>
+								L'été 2026 est consacré aux campagnes de Québec et de Montréal, avec adaptation du
+								modèle hybride XGB–KED à ces deux territoires et extension de l'exploitation des
+								simulations climatiques d'OURANOS.
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- =========================== LIVRABLES =========================== -->
+		<section class="section section-alt" id="livrables">
+			<div class="contenu">
+				<span class="surtitre">Résultats attendus</span>
+				<h2 class="section-titre">Livrables du projet</h2>
+
+				<div class="grille-listes">
+					<div class="bloc-liste">
+						<h3>Rapports et diffusion</h3>
+						<ul>
+							<li>Rapports d'avancement aux deux mois</li>
+							<li>Rapports d'étapes détaillés aux jalons semestriels</li>
+							<li>Présentations et procès-verbaux de rencontre</li>
+							<li>Articles scientifiques et de vulgarisation</li>
+						</ul>
+					</div>
+					<div class="bloc-liste">
+						<h3>Données</h3>
+						<ul>
+							<li>Photos et métadonnées associées</li>
+							<li>Données géospatiales ouvertes réunies pour les sites d'étude</li>
+							<li>Variables dérivées : indices de végétation, variables bioclimatiques, écologiques et
+								socioéconomiques</li>
+						</ul>
+					</div>
+					<div class="bloc-liste">
+						<h3>Algorithmes</h3>
+						<ul>
+							<li>Structure de la plateforme participative</li>
+							<li>Modèles de vision par ordinateur (CNN) et procédures de mise à jour</li>
+							<li>Scripts de prétraitement géospatial</li>
+							<li>Modèles d'inférence du risque de présence</li>
+						</ul>
+					</div>
+					<div class="bloc-liste">
+						<h3>Produits cartographiques</h3>
+						<ul>
+							<li>Cartes d'observations et de probabilité de présence</li>
+							<li>Cartes des variables explicatives</li>
+							<li>Format adapté au Géoportail de l'INSPQ et aux besoins du MELCCFP</li>
+							<li>Applications web et mobile de collecte et d'identification</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- ============================ ÉQUIPE ============================ -->
+		<section class="section" id="equipe">
+			<div class="contenu">
+				<span class="surtitre">Qui réalise le projet</span>
+				<h2 class="section-titre">Équipe et partenaires</h2>
+				<p class="section-chapeau">
+					Département de géomatique appliquée de l'Université de Sherbrooke, en partenariat avec l'Institut
+					national de santé publique du Québec. Le projet s'appuie sur des cohortes successives d'étudiantes
+					et d'étudiants de deuxième et troisième cycles, avec transfert structuré entre les équipes.
+				</p>
+
+				<div class="equipe-groupe">
+					<h3>Direction scientifique</h3>
+					<div class="equipe">
+						<div class="membre">
+							<div class="membre-nom">Pr Mickaël Germain</div>
+							<div class="membre-role">Chercheur principal</div>
+							<a href="mailto:mickael.germain@usherbrooke.ca">mickael.germain@usherbrooke.ca</a>
+						</div>
+						<div class="membre">
+							<div class="membre-nom">Pr Yacine Bouroubi</div>
+							<div class="membre-role">Cochercheur</div>
+							<a href="mailto:yacine.bouroubi@usherbrooke.ca">yacine.bouroubi@usherbrooke.ca</a>
+						</div>
+						<div class="membre">
+							<div class="membre-nom">Pr Samuel Foucher</div>
+							<div class="membre-role">Cochercheur &mdash; données climatiques</div>
+						</div>
+						<div class="membre">
+							<div class="membre-nom">Pr Philippe Apparicio</div>
+							<div class="membre-role">Cochercheur &mdash; analyse spatiale et défavorisation</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="equipe-groupe">
+					<h3>Encadrement et professionnels de recherche</h3>
+					<div class="equipe">
+						<div class="membre">
+							<div class="membre-nom">Alphna Kemoe</div>
+							<div class="membre-role">Professionnelle de recherche &mdash; jusqu'en décembre 2026</div>
+						</div>
+						<div class="membre">
+							<div class="membre-nom">Nicolas Marchand</div>
+							<div class="membre-role">CARTEL &mdash; soutien à l'encadrement des travaux et des étudiants
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="equipe-groupe">
+					<h3>Équipe en cours</h3>
+					<div class="equipe">
+						<div class="membre">
+							<div class="membre-nom">Dieumbe Fall</div>
+							<div class="membre-role">Collecte terrain, traitement QGIS et tableau de bord multi-sites
+							</div>
+						</div>
+						<div class="membre">
+							<div class="membre-nom">Mouhamed Diakhate</div>
+							<div class="membre-role">Maîtrise de type cours &mdash; collecte de données,
+								campagnes de l'été et de l'automne 2026</div>
+							<span class="membre-arrivee">Automne 2026</span>
+						</div>
+						<div class="membre">
+							<div class="membre-nom">Cheikh Bane</div>
+							<div class="membre-role">Maîtrise de type cours &mdash; collecte de l'été et de
+								l'automne 2026, modélisation prédictive pour Québec</div>
+							<span class="membre-arrivee">Automne 2026</span>
+						</div>
+						<div class="membre">
+							<div class="membre-nom">Alex Camon</div>
+							<div class="membre-role">Doctorat &mdash; évolution du tableau de bord connecté à iNaturalist
+							</div>
+						</div>
+						<div class="membre">
+							<div class="membre-nom">Alexandre Fredette</div>
+							<div class="membre-role">Encadrement de l'équipe de Montréal</div>
+						</div>
+						<div class="membre">
+							<div class="membre-nom">Mamadou Mashoud</div>
+							<div class="membre-role">Maîtrise de type cours &mdash; modélisation à l'échelle du
+								Québec et projections climatiques</div>
+							<span class="membre-arrivee">Automne 2026</span>
+						</div>
+						<div class="membre">
+							<div class="membre-nom">Olivier Larocque</div>
+							<div class="membre-role">Maîtrise de type recherche &mdash; modélisation prédictive et
+								projections climatiques, jusqu'au terme du projet</div>
+							<span class="membre-arrivee">Automne 2026</span>
+						</div>
+						<div class="membre">
+							<div class="membre-nom">Yaye Fâlo Mboup</div>
+							<div class="membre-role">Maîtrise de type cours &mdash; détection de l'ambroisie à
+								partir de vidéos embarquées, volet exploratoire hors périmètre du contrat</div>
+							<span class="membre-arrivee">Automne 2026</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="equipe-groupe">
+					<h3>Ont contribué au projet</h3>
+					<div class="equipe">
+						<div class="membre membre-passe">
+							<div class="membre-nom">Wilfix Sagard</div>
+							<div class="membre-role">Modélisation prédictive du risque &mdash; essai, mai 2026</div>
+						</div>
+						<div class="membre membre-passe">
+							<div class="membre-nom">Omar Guettache</div>
+							<div class="membre-role">Identification automatique par vision par ordinateur &mdash; essai,
+								mai 2026</div>
+						</div>
+						<div class="membre membre-passe">
+							<div class="membre-nom">Fritzno Louis</div>
+							<div class="membre-role">Tableau de bord analytique de Sherbrooke &mdash; essai, mai 2026
+							</div>
+						</div>
+						<div class="membre membre-passe">
+							<div class="membre-nom">Nicolas Balard</div>
+							<div class="membre-role">Professionnel de recherche &mdash; données climatiques et
+								météorologiques</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="logos">
+					<img src="assets/img/inspq.jpg" alt="Institut national de santé publique du Québec">
+					<img src="assets/img/udes-logo.PNG" alt="Université de Sherbrooke">
+					<img src="assets/img/inaturalist-logo.svg" alt="iNaturalist">
+				</div>
+			</div>
+		</section>
+
+	</main>
+
+	<!-- ========================== PIED DE PAGE ========================== -->
+	<footer class="site">
+		<div class="contenu">
+			<div>
+				<h4>Le projet</h4>
+				<p style="margin-bottom:10px">
+					Cartographie participative de l'herbe à poux &mdash; projet pilote mené par le Département de
+					géomatique appliquée de l'Université de Sherbrooke pour l'Institut national de santé publique du
+					Québec.
+				</p>
+			</div>
+			<div>
+				<h4>Les cartes</h4>
+				<ul>
+					<li><a href="cartes/sherbrooke/index.html">Tableau de bord de Sherbrooke</a></li>
+					<li><a href="cartes/montreal/index.html">Tableau de bord de Montréal</a></li>
+					<li><a href="cartes/quebec/index.html">Tableau de bord de Québec</a></li>
+					<li><a href="cartes/projections/index.html">Projections climatiques</a></li>
+					<li><a href="cartes/sherbrooke/guide.html">Guide d'utilisation</a></li>
+				</ul>
+			</div>
+			<div>
+				<h4>Contribuer</h4>
+				<ul>
+					<li><a href="https://inaturalist.ca" target="_blank" rel="noopener">iNaturalist Canada</a></li>
+					<li><a href="https://www.quebec.ca/habitation-territoire/milieu-de-vie-sain/reconnaitre-et-limiter-l-herbe-a-poux"
+							target="_blank" rel="noopener">Reconnaître l'herbe à poux</a></li>
+					<li><a href="https://www.inspq.qc.ca/changements-climatiques/menaces/pollens-allergenes"
+							target="_blank" rel="noopener">Pollens allergènes — INSPQ</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="mention">
+			Université de Sherbrooke &mdash; Département de géomatique appliquée &nbsp;·&nbsp;
+			Données d'observation&nbsp;: iNaturalist &nbsp;·&nbsp; Plateforme en développement
+		</div>
+	</footer>
+
+	<script src="assets/js/site.js"></script>
+</body>
+
+</html>

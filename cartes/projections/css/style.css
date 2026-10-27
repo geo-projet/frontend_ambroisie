@@ -1,0 +1,309 @@
+/* =========================================================================
+   Carte des projections climatiques.
+   Charge apres ../sherbrooke/css/projet.css, dont elle reprend le bandeau de
+   projet, le bandeau d'indicateurs et la charte.
+   ========================================================================= */
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+.main-container {
+  display: flex;
+  width: 100vw;
+  height: calc(100vh - var(--h-entete));
+  overflow: hidden;
+}
+
+#map {
+  flex: 1;
+  height: 100%;
+  position: relative;
+  background: #eef2f5;
+}
+
+#titre-carte {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  background: rgba(255, 255, 255, 0.94);
+  padding: 8px 20px;
+  border-radius: 22px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  white-space: nowrap;
+}
+
+#titre-scenario {
+  font-weight: 700;
+  color: var(--bleu-profond);
+}
+
+#titre-horizon {
+  color: #5c6b74;
+}
+
+#scale-container {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  z-index: 20;
+}
+
+/* ---------- Panneau de commande ---------- */
+
+#commandes {
+  width: 330px;
+  flex-shrink: 0;
+  height: 100%;
+  overflow-y: auto;
+  background: #fff;
+  border-right: 1px solid #dde3e8;
+  padding: 18px 20px 28px;
+  box-sizing: border-box;
+}
+
+.bloc {
+  margin-bottom: 24px;
+}
+
+.bloc h2 {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #5c6b74;
+  margin: 0 0 10px;
+}
+
+.segments {
+  display: flex;
+  gap: 6px;
+}
+
+.segments.vertical {
+  flex-direction: column;
+  gap: 5px;
+}
+
+.segment {
+  flex: 1;
+  padding: 9px 10px;
+  border: 1px solid #dde3e8;
+  border-radius: 8px;
+  background: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  color: #22303a;
+  cursor: pointer;
+  text-align: center;
+  transition: background 0.12s ease, border-color 0.12s ease;
+  font-family: inherit;
+}
+
+.segments.vertical .segment {
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.segment:hover {
+  border-color: var(--bleu);
+}
+
+.segment.actif {
+  background: var(--bleu-profond);
+  border-color: var(--bleu-profond);
+  color: #fff;
+}
+
+.segment .detail {
+  font-size: 11px;
+  font-weight: 500;
+  opacity: 0.75;
+}
+
+.aide {
+  font-size: 12px;
+  color: #5c6b74;
+  margin: 9px 0 0;
+  line-height: 1.45;
+  min-height: 32px;
+}
+
+.bouton-lecture {
+  margin-top: 9px;
+  width: 100%;
+  padding: 9px;
+  border: 1px solid #dde3e8;
+  border-radius: 8px;
+  background: #f6f8fa;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #22303a;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.bouton-lecture:hover {
+  border-color: var(--bleu);
+}
+
+.bouton-lecture.en-cours {
+  background: var(--vert-ambroisie);
+  border-color: var(--vert-ambroisie);
+  color: #fff;
+}
+
+/* ---------- Légende ---------- */
+
+.legende {
+  list-style: none;
+  margin: 0 0 12px;
+  padding: 0;
+}
+
+.legende li {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 5px 0;
+  font-size: 12.5px;
+  color: #22303a;
+}
+
+.legende .puce {
+  width: 20px;
+  height: 13px;
+  border-radius: 3px;
+  flex-shrink: 0;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.legende .part {
+  margin-left: auto;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  color: var(--bleu-profond);
+  font-size: 12px;
+}
+
+.bascule {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  color: #22303a;
+  cursor: pointer;
+  padding-top: 8px;
+  border-top: 1px solid #eef2f5;
+}
+
+/* ---------- Encadré méthodologique ---------- */
+
+.encadre-methode {
+  background: #f5f9f7;
+  border-left: 3px solid var(--vert-ambroisie);
+  border-radius: 0 8px 8px 0;
+  padding: 14px 16px;
+}
+
+.encadre-methode h2 {
+  color: var(--vert-ambroisie);
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 13px;
+}
+
+.encadre-methode p {
+  font-size: 12px;
+  line-height: 1.5;
+  color: #3d4a52;
+  margin: 0 0 9px;
+}
+
+.encadre-methode p:last-child {
+  margin-bottom: 0;
+}
+
+.encadre-methode .source {
+  font-size: 10.5px;
+  color: #7b8a93;
+  border-top: 1px solid #e2ebe5;
+  padding-top: 9px;
+}
+
+/* ---------- Popup ---------- */
+
+.ol-popup-clim {
+  background: #fff;
+  border-radius: 9px;
+  box-shadow: 0 3px 14px rgba(0, 0, 0, 0.2);
+  padding: 12px 15px;
+  font-size: 12.5px;
+  min-width: 190px;
+  transform: translate(-50%, -100%) translateY(-12px);
+  position: relative;
+}
+
+.ol-popup-clim h3 {
+  margin: 0 0 7px;
+  font-size: 13.5px;
+  color: var(--bleu-profond);
+}
+
+.ol-popup-clim dl {
+  margin: 0;
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 3px 12px;
+}
+
+.ol-popup-clim dt {
+  color: #5c6b74;
+}
+
+.ol-popup-clim dd {
+  margin: 0;
+  text-align: right;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Écrans réduits ---------- */
+
+@media (max-width: 900px) {
+  .main-container {
+    flex-direction: column;
+  }
+
+  #commandes {
+    width: 100%;
+    height: auto;
+    max-height: 46%;
+    border-right: none;
+    border-bottom: 1px solid #dde3e8;
+  }
+
+  #map {
+    flex: 1;
+    min-height: 300px;
+  }
+
+  #titre-carte {
+    font-size: 12px;
+    padding: 6px 14px;
+  }
+}

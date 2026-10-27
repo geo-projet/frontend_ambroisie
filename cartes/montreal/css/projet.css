@@ -1,0 +1,524 @@
+/* =========================================================================
+   Surcouche d'intégration au site du projet.
+   Chargée après style.css : n'ajoute que le bandeau de projet, le bandeau
+   d'indicateurs et les ajustements de mise en page qui en découlent.
+   ========================================================================= */
+
+:root {
+  --bleu-profond: #1e5f74;
+  --bleu: #3498db;
+  --vert-ambroisie: #4a7c2f;
+  --gris-texte: #22303a;
+  --h-bandeau: 54px;
+  --h-kpi: 44px;
+  --h-entete: 98px;
+}
+
+/* ---- Réservation de la hauteur des deux bandeaux ---- */
+
+.main-container {
+  height: calc(100vh - var(--h-entete));
+}
+
+/* Le titre flottant d'origine fait doublon avec le bandeau de projet */
+#map-header {
+  display: none;
+}
+
+/* ---- Bandeau de projet ---- */
+
+#bandeau-projet {
+  height: var(--h-bandeau);
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 0 18px;
+  background: linear-gradient(135deg, var(--bleu-profond) 0%, var(--bleu) 100%);
+  color: #fff;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  box-sizing: border-box;
+}
+
+#bandeau-retour {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background 0.15s ease;
+}
+
+#bandeau-retour:hover,
+#bandeau-retour:focus-visible {
+  background: rgba(255, 255, 255, 0.3);
+  color: #fff;
+}
+
+#bandeau-identite {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+}
+
+#bandeau-identite > i {
+  font-size: 22px;
+  opacity: 0.9;
+}
+
+#bandeau-titre {
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#bandeau-sous-titre {
+  font-size: 12px;
+  opacity: 0.85;
+  line-height: 1.2;
+}
+
+/* ---- Sélecteur de ville ---- */
+
+#bandeau-villes {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.ville-onglet {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 18px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: #fff;
+  background: transparent;
+  transition: background 0.15s ease;
+}
+
+.ville-onglet:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.ville-onglet.active {
+  background: #fff;
+  color: var(--bleu-profond);
+  border-color: #fff;
+  cursor: default;
+}
+
+.ville-onglet.indisponible {
+  opacity: 0.55;
+  cursor: not-allowed;
+  border-style: dashed;
+}
+
+.ville-onglet.indisponible:hover {
+  background: transparent;
+}
+
+.ville-onglet .pastille {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  opacity: 0.85;
+}
+
+/* ---- Bandeau d'indicateurs ---- */
+
+#kpi-bar {
+  height: var(--h-kpi);
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  padding: 0 20px;
+  background: #fff;
+  border-bottom: 1px solid #dde3e8;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  color: var(--gris-texte);
+  box-sizing: border-box;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.kpi {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+}
+
+.kpi-valeur {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--bleu-profond);
+  font-variant-numeric: tabular-nums;
+}
+
+.kpi-libelle {
+  font-size: 12px;
+  color: #64757f;
+}
+
+.kpi-etat {
+  margin-left: auto;
+  font-size: 12px;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+.kpi-etat-chargement {
+  background: #eef4f8;
+  color: #4a6572;
+}
+
+.kpi-etat-ok {
+  background: #e6f4ea;
+  color: #1e6b31;
+}
+
+.kpi-etat-degrade {
+  background: #fff4e0;
+  color: #8a5a00;
+}
+
+/* ---- Popup d'observation enrichi ---- */
+
+.popup-titre {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--bleu-profond);
+  margin-bottom: 1px;
+}
+
+.popup-taxon {
+  font-size: 12px;
+  color: #5c6b74;
+  margin-bottom: 7px;
+}
+
+.popup-ligne {
+  font-size: 12.5px;
+  margin-bottom: 3px;
+}
+
+.popup-badge {
+  display: inline-block;
+  margin: 5px 0;
+  padding: 2px 9px;
+  border-radius: 10px;
+  background: #e6f4ea;
+  color: #1e6b31;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.popup-lien {
+  margin-top: 7px;
+  font-size: 12.5px;
+}
+
+.popup-lien a {
+  color: var(--bleu);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.popup-lien a:hover {
+  text-decoration: underline;
+}
+
+/* ---- Couche à venir dans le panneau des couches ---- */
+
+.layer-item.layer-a-venir {
+  opacity: 0.6;
+}
+
+.layer-item.layer-a-venir label {
+  font-style: italic;
+}
+
+.badge-a-venir {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 7px;
+  border-radius: 9px;
+  background: #eef2f5;
+  color: #5c6b74;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+/* ---- Accessibilité : focus visible sur les boutons ronds ---- */
+
+.map-btn-box:focus-visible {
+  outline: 3px solid var(--bleu);
+  outline-offset: 3px;
+}
+
+/* ---- Adaptations écrans réduits ---- */
+
+@media screen and (max-width: 1100px) {
+  #bandeau-sous-titre {
+    display: none;
+  }
+
+  #kpi-bar {
+    gap: 18px;
+  }
+}
+
+@media screen and (max-width: 820px) {
+  :root {
+    --h-bandeau: 48px;
+    --h-kpi: 40px;
+    --h-entete: 88px;
+  }
+
+  #bandeau-titre {
+    font-size: 13px;
+  }
+
+  #bandeau-retour span {
+    display: none;
+  }
+
+  .ville-onglet {
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+
+  .ville-onglet .pastille {
+    display: none;
+  }
+
+  .kpi-valeur {
+    font-size: 15px;
+  }
+
+  .kpi-etat {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 620px) {
+  /* Sous cette largeur le titre serait tronqué à quelques caractères :
+     l'onglet de ville actif et le bouton de retour suffisent à situer la page. */
+  #bandeau-identite {
+    display: none;
+  }
+
+  #bandeau-villes {
+    margin-left: auto;
+  }
+
+  .kpi:nth-child(3),
+  .kpi:nth-child(4) {
+    display: none;
+  }
+}
+
+/* ---------- Panneau de la couche prédictive ---------- */
+
+.prediction-panneau {
+  margin: 4px 0 14px;
+  padding: 0 4px;
+}
+
+.prediction-panneau:empty {
+  display: none;
+}
+
+.prediction-etats {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 10px;
+}
+
+.prediction-etat {
+  flex: 1;
+  padding: 6px 4px;
+  border: 1px solid var(--gris-ligne, #dde3e8);
+  border-radius: 6px;
+  background: #fff;
+  font-size: 10.5px;
+  font-weight: 600;
+  color: #22303a;
+  cursor: pointer;
+  font-family: inherit;
+  line-height: 1.2;
+}
+
+.prediction-etat:hover {
+  border-color: var(--bleu);
+}
+
+.prediction-etat.actif {
+  background: var(--bleu-profond);
+  border-color: var(--bleu-profond);
+  color: #fff;
+}
+
+.prediction-legende {
+  margin-bottom: 10px;
+}
+
+.prediction-classe {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 3px 0;
+  font-size: 11.5px;
+  color: #22303a;
+}
+
+.prediction-puce {
+  width: 16px;
+  height: 11px;
+  border-radius: 3px;
+  flex-shrink: 0;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.prediction-libelle {
+  flex: 1;
+  min-width: 0;
+}
+
+.prediction-part {
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  color: var(--bleu-profond);
+  font-size: 11px;
+}
+
+.prediction-opacite {
+  display: block;
+  font-size: 11px;
+  color: #5c6b74;
+  margin-bottom: 10px;
+}
+
+.prediction-opacite input {
+  width: 100%;
+  margin-top: 3px;
+}
+
+.prediction-metriques {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+.prediction-metriques div {
+  background: var(--fond-doux, #f5f9f7);
+  border-radius: 6px;
+  padding: 6px 8px;
+}
+
+.prediction-metriques span {
+  display: block;
+  font-size: 9.5px;
+  color: #5c6b74;
+  line-height: 1.25;
+}
+
+.prediction-metriques strong {
+  font-size: 14px;
+  color: var(--bleu-profond);
+  font-variant-numeric: tabular-nums;
+}
+
+.prediction-avertissement {
+  font-size: 10.5px;
+  line-height: 1.4;
+  color: #8a5a00;
+  background: #fff4e0;
+  border-radius: 6px;
+  padding: 8px 10px;
+  margin: 0;
+}
+
+.prediction-absent {
+  font-size: 11px;
+  color: #7b8a93;
+  font-style: italic;
+  margin: 0;
+}
+
+/* ---------- Terrains à potentiel de colonisation ---------- */
+
+.terrains-categories {
+  margin-bottom: 10px;
+}
+
+.terrains-categorie {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 3px 0;
+  font-size: 11.5px;
+  color: #22303a;
+  cursor: pointer;
+}
+
+.terrains-categorie input {
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.terrains-puce {
+  width: 11px;
+  height: 11px;
+  transform: rotate(45deg);
+  flex-shrink: 0;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12);
+}
+
+.terrains-libelle {
+  flex: 1;
+  min-width: 0;
+}
+
+.terrains-nombre {
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  color: var(--bleu-profond);
+  font-size: 11px;
+}
+
+.terrains-confrontation {
+  font-size: 11px;
+  line-height: 1.45;
+  color: #22303a;
+  background: var(--fond-doux, #f5f9f7);
+  border-radius: 6px;
+  padding: 8px 10px;
+  margin-bottom: 10px;
+}
+
+.terrains-confrontation strong {
+  color: var(--vert-ambroisie, #4a7c2f);
+  font-size: 13px;
+}

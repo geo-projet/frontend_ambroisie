@@ -1,0 +1,1036 @@
+/* =========================================================================
+   Site du projet « Cartographie participative de l'herbe à poux »
+   INSPQ — Université de Sherbrooke, Département de géomatique appliquée
+   ========================================================================= */
+
+:root {
+  --bleu-profond: #1e5f74;
+  --bleu: #3498db;
+  --bleu-clair: #e8f4fd;
+  --vert-ambroisie: #4a7c2f;
+  --vert-clair: #eef5e8;
+  --ambre: #b26b00;
+  --gris-texte: #22303a;
+  --gris-doux: #5c6b74;
+  --gris-ligne: #dde3e8;
+  --fond: #f6f8fa;
+  --blanc: #ffffff;
+  --rayon: 12px;
+  --ombre: 0 2px 10px rgba(30, 95, 116, 0.08);
+  --ombre-forte: 0 8px 28px rgba(30, 95, 116, 0.16);
+  --largeur: 1160px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 78px;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  color: var(--gris-texte);
+  background: var(--blanc);
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+h1, h2, h3, h4 {
+  line-height: 1.22;
+  margin: 0 0 0.5em;
+  font-weight: 700;
+}
+
+p {
+  margin: 0 0 1em;
+}
+
+a {
+  color: var(--bleu-profond);
+}
+
+.contenu {
+  max-width: var(--largeur);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.section {
+  padding: 72px 0;
+}
+
+.section-alt {
+  background: var(--fond);
+}
+
+.section-titre {
+  font-size: 30px;
+  margin-bottom: 8px;
+}
+
+.section-chapeau {
+  color: var(--gris-doux);
+  max-width: 760px;
+  margin-bottom: 36px;
+  font-size: 17px;
+}
+
+.surtitre {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--bleu);
+  margin-bottom: 10px;
+}
+
+/* ---------- En-tête ---------- */
+
+header.site {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--gris-ligne);
+}
+
+.entete {
+  max-width: var(--largeur);
+  margin: 0 auto;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.marque {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  text-decoration: none;
+  color: var(--gris-texte);
+}
+
+.marque i {
+  font-size: 24px;
+  color: var(--vert-ambroisie);
+}
+
+.marque-nom {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.15;
+}
+
+.marque-sous {
+  font-size: 11.5px;
+  color: var(--gris-doux);
+  line-height: 1.15;
+}
+
+nav.principale {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+nav.principale a {
+  color: var(--gris-texte);
+  text-decoration: none;
+  font-size: 14.5px;
+  font-weight: 500;
+  padding: 4px 0;
+  border-bottom: 2px solid transparent;
+}
+
+nav.principale a:hover {
+  color: var(--bleu-profond);
+  border-bottom-color: var(--bleu);
+}
+
+/* Menu des cartes, dans l'en-tête. Quatre cartes désormais : un bouton par
+   ville encombrerait la barre de navigation. */
+.menu-cartes {
+  position: relative;
+}
+
+.menu-cartes > button {
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.menu-cartes-fleche {
+  font-size: 11px;
+  transition: transform 0.15s ease;
+}
+
+.menu-cartes[data-ouvert="oui"] .menu-cartes-fleche {
+  transform: rotate(180deg);
+}
+
+.menu-cartes-liste {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 210px;
+  background: var(--blanc);
+  border-radius: var(--rayon);
+  box-shadow: var(--ombre-forte);
+  padding: 6px;
+  z-index: 60;
+}
+
+.menu-cartes-liste[hidden] {
+  display: none;
+}
+
+.menu-cartes-liste a {
+  display: block;
+  padding: 9px 14px;
+  border-radius: 8px;
+  border-bottom: none;
+  font-size: 14.5px;
+  font-weight: 500;
+  color: var(--gris-texte);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.menu-cartes-liste a:hover {
+  background: var(--bleu-clair);
+  color: var(--bleu-profond);
+  border-bottom: none;
+}
+
+.bouton {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 11px 22px;
+  border-radius: 24px;
+  font-size: 14.5px;
+  font-weight: 600;
+  text-decoration: none;
+  border: 1.5px solid transparent;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  white-space: nowrap;
+}
+
+.bouton:hover {
+  transform: translateY(-1px);
+}
+
+.bouton-primaire {
+  background: var(--vert-ambroisie);
+  color: var(--blanc);
+  box-shadow: 0 3px 10px rgba(74, 124, 47, 0.28);
+}
+
+.bouton-primaire:hover {
+  background: #3d6827;
+  color: var(--blanc);
+}
+
+.bouton-secondaire {
+  background: transparent;
+  color: var(--blanc);
+  border-color: rgba(255, 255, 255, 0.65);
+}
+
+.bouton-secondaire:hover {
+  background: rgba(255, 255, 255, 0.16);
+  color: var(--blanc);
+}
+
+.bouton-neutre {
+  background: var(--blanc);
+  color: var(--bleu-profond);
+  border-color: var(--gris-ligne);
+}
+
+.bouton-neutre:hover {
+  border-color: var(--bleu);
+  color: var(--bleu-profond);
+}
+
+.bouton-inactif {
+  background: #eef2f5;
+  color: #90a0a9;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.bouton-inactif:hover {
+  transform: none;
+}
+
+/* ---------- Hero ---------- */
+
+.hero {
+  position: relative;
+  color: var(--blanc);
+  background: linear-gradient(135deg, rgba(20, 62, 76, 0.93), rgba(30, 95, 116, 0.78)),
+    url('../img/slide1.jpg') center / cover no-repeat;
+}
+
+.hero-contenu {
+  max-width: var(--largeur);
+  margin: 0 auto;
+  padding: 92px 24px 84px;
+}
+
+.hero-etiquette {
+  display: inline-block;
+  padding: 5px 15px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  margin-bottom: 22px;
+}
+
+.hero h1 {
+  font-size: 46px;
+  max-width: 860px;
+  margin-bottom: 18px;
+}
+
+.hero-sous-titre {
+  font-size: 19px;
+  max-width: 700px;
+  opacity: 0.94;
+  margin-bottom: 32px;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+/* ---------- Chiffres clés ---------- */
+
+.chiffres {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(196px, 1fr));
+  gap: 1px;
+  background: var(--gris-ligne);
+  border-top: 1px solid var(--gris-ligne);
+  border-bottom: 1px solid var(--gris-ligne);
+}
+
+.chiffre {
+  background: var(--blanc);
+  padding: 28px 24px;
+}
+
+.chiffre-valeur {
+  font-size: 34px;
+  font-weight: 800;
+  color: var(--bleu-profond);
+  line-height: 1.05;
+  font-variant-numeric: tabular-nums;
+}
+
+.chiffre-valeur.accent {
+  color: var(--vert-ambroisie);
+}
+
+.chiffre-libelle {
+  font-size: 13.5px;
+  color: var(--gris-doux);
+  margin-top: 8px;
+}
+
+.chiffre-source {
+  font-size: 11.5px;
+  color: #8c9aa3;
+  margin-top: 6px;
+}
+
+/* ---------- Texte à deux colonnes ---------- */
+
+.deux-colonnes {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+.encadre {
+  background: var(--bleu-clair);
+  border-left: 4px solid var(--bleu);
+  border-radius: 0 var(--rayon) var(--rayon) 0;
+  padding: 22px 24px;
+}
+
+.encadre h3 {
+  font-size: 16px;
+  margin-bottom: 8px;
+  color: var(--bleu-profond);
+}
+
+.encadre p:last-child {
+  margin-bottom: 0;
+}
+
+.encadre-note {
+  background: var(--vert-clair);
+  border-left-color: var(--vert-ambroisie);
+}
+
+.encadre-note h3 {
+  color: var(--vert-ambroisie);
+}
+
+/* ---------- Chaîne méthodologique ---------- */
+
+.chaine {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 14px;
+}
+
+.etape {
+  background: var(--blanc);
+  border: 1px solid var(--gris-ligne);
+  border-radius: var(--rayon);
+  padding: 22px 18px;
+  position: relative;
+  box-shadow: var(--ombre);
+}
+
+.etape-numero {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--bleu-profond);
+  color: var(--blanc);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  margin-bottom: 14px;
+}
+
+.etape h3 {
+  font-size: 15px;
+  margin-bottom: 7px;
+}
+
+.etape p {
+  font-size: 13.5px;
+  color: var(--gris-doux);
+  margin-bottom: 12px;
+}
+
+.pastille {
+  display: inline-block;
+  padding: 3px 11px;
+  border-radius: 11px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.pastille-cours {
+  background: var(--vert-clair);
+  color: #3d6827;
+}
+
+.pastille-dev {
+  background: #fff4e0;
+  color: var(--ambre);
+}
+
+.pastille-venir {
+  background: #eef2f5;
+  color: var(--gris-doux);
+}
+
+/* ---------- Villes ---------- */
+
+.villes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 26px;
+}
+
+.ville {
+  background: var(--blanc);
+  border: 1px solid var(--gris-ligne);
+  border-radius: var(--rayon);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--ombre);
+}
+
+.ville-visuel {
+  height: 176px;
+  background: var(--fond);
+  position: relative;
+  overflow: hidden;
+}
+
+.ville-visuel img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.ville-visuel-vide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #b3c1c9;
+  font-size: 46px;
+  background: repeating-linear-gradient(45deg, #eef2f5, #eef2f5 12px, #e6ecf0 12px, #e6ecf0 24px);
+}
+
+.ville-statut {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 5px 13px;
+  border-radius: 13px;
+  font-size: 11.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  background: var(--blanc);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.14);
+}
+
+.ville-statut.en-ligne {
+  background: var(--vert-ambroisie);
+  color: var(--blanc);
+}
+
+.ville-corps {
+  padding: 22px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.ville-corps h3 {
+  font-size: 21px;
+  margin-bottom: 4px;
+}
+
+.ville-meta {
+  font-size: 13px;
+  color: var(--gris-doux);
+  margin-bottom: 14px;
+}
+
+.ville-corps p {
+  font-size: 14.5px;
+  color: var(--gris-doux);
+  flex: 1;
+}
+
+.ville-compteur {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.ville-compteur strong {
+  font-size: 26px;
+  color: var(--vert-ambroisie);
+  font-variant-numeric: tabular-nums;
+}
+
+.ville-compteur span {
+  font-size: 13px;
+  color: var(--gris-doux);
+}
+
+/* ---------- Avancement ---------- */
+
+.volets {
+  display: grid;
+  gap: 14px;
+}
+
+.volet {
+  display: grid;
+  grid-template-columns: 92px 1fr 190px;
+  gap: 22px;
+  align-items: center;
+  background: var(--blanc);
+  border: 1px solid var(--gris-ligne);
+  border-radius: var(--rayon);
+  padding: 18px 22px;
+}
+
+.volet-code {
+  font-weight: 800;
+  font-size: 14px;
+  color: var(--bleu-profond);
+  letter-spacing: 0.02em;
+}
+
+.volet-nom {
+  font-weight: 600;
+  font-size: 15.5px;
+}
+
+.volet-detail {
+  font-size: 13.5px;
+  color: var(--gris-doux);
+}
+
+.jauge {
+  height: 8px;
+  border-radius: 4px;
+  background: #e8edf1;
+  overflow: hidden;
+  margin-bottom: 7px;
+}
+
+.jauge span {
+  display: block;
+  height: 100%;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--vert-ambroisie), #6aa84f);
+}
+
+.jauge-etat {
+  font-size: 12.5px;
+  color: var(--gris-doux);
+}
+
+/* ---------- Listes ---------- */
+
+.grille-listes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(258px, 1fr));
+  gap: 30px;
+}
+
+.bloc-liste h3 {
+  font-size: 16px;
+  color: var(--bleu-profond);
+  padding-bottom: 9px;
+  border-bottom: 2px solid var(--gris-ligne);
+  margin-bottom: 13px;
+}
+
+.bloc-liste ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.bloc-liste li {
+  font-size: 14.5px;
+  color: var(--gris-doux);
+  margin-bottom: 7px;
+}
+
+/* ---------- Équipe ---------- */
+
+.equipe {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(212px, 1fr));
+  gap: 16px;
+  margin-bottom: 44px;
+}
+
+.membre {
+  background: var(--blanc);
+  border: 1px solid var(--gris-ligne);
+  border-radius: var(--rayon);
+  padding: 20px;
+}
+
+.membre-nom {
+  font-weight: 700;
+  font-size: 15.5px;
+  margin-bottom: 3px;
+}
+
+.membre-role {
+  font-size: 13px;
+  color: var(--gris-doux);
+  margin-bottom: 9px;
+}
+
+.membre a {
+  font-size: 13px;
+  color: var(--bleu);
+  text-decoration: none;
+  word-break: break-all;
+}
+
+.membre a:hover {
+  text-decoration: underline;
+}
+
+.logos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 52px;
+  padding: 36px 0 0;
+  border-top: 1px solid var(--gris-ligne);
+}
+
+.logos img {
+  max-height: 62px;
+  width: auto;
+  opacity: 0.85;
+}
+
+/* ---------- Pied de page ---------- */
+
+footer.site {
+  background: var(--bleu-profond);
+  color: rgba(255, 255, 255, 0.86);
+  padding: 46px 0 30px;
+  font-size: 14px;
+}
+
+footer.site .contenu {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 40px;
+}
+
+footer.site h4 {
+  color: var(--blanc);
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 13px;
+}
+
+footer.site a {
+  color: rgba(255, 255, 255, 0.86);
+  text-decoration: none;
+}
+
+footer.site a:hover {
+  color: var(--blanc);
+  text-decoration: underline;
+}
+
+footer.site ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+footer.site li {
+  margin-bottom: 7px;
+}
+
+.mention {
+  max-width: var(--largeur);
+  margin: 34px auto 0;
+  padding: 18px 24px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+  font-size: 12.5px;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+/* ---------- Adaptations ---------- */
+
+@media (max-width: 980px) {
+  .deux-colonnes {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .chaine {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .volet {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  footer.site .contenu {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  nav.principale a {
+    display: none;
+  }
+
+  .hero h1 {
+    font-size: 33px;
+  }
+
+  .hero-sous-titre {
+    font-size: 17px;
+  }
+
+  .section {
+    padding: 52px 0;
+  }
+}
+
+@media (max-width: 620px) {
+  .chaine {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-contenu {
+    padding: 60px 24px 54px;
+  }
+
+  .hero h1 {
+    font-size: 27px;
+  }
+
+  .chiffre-valeur {
+    font-size: 28px;
+  }
+
+  .logos {
+    gap: 30px;
+  }
+
+  .logos img {
+    max-height: 46px;
+  }
+}
+
+/* ---------- Travaux réalisés et en cours ---------- */
+
+.travaux {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.travail {
+  background: var(--blanc);
+  border: 1px solid var(--gris-ligne);
+  border-top: 4px solid var(--vert-ambroisie);
+  border-radius: var(--rayon);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--ombre);
+}
+
+.travail-engage {
+  border-top-color: var(--ambre);
+  background: #fffdf8;
+  /* Le travail engagé occupe toute la largeur : il se distingue des trois
+     essais déposés et évite une rangée à moitié vide. */
+  grid-column: 1 / -1;
+}
+
+.travail-engage .travail-corps {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 34px;
+  align-items: start;
+}
+
+@media (max-width: 820px) {
+  .travail-engage .travail-corps {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+}
+
+.travail-etat {
+  display: inline-block;
+  align-self: flex-start;
+  padding: 3px 11px;
+  border-radius: 11px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  background: var(--vert-clair);
+  color: #3d6827;
+  margin-bottom: 12px;
+}
+
+.travail-engage .travail-etat {
+  background: #fff4e0;
+  color: var(--ambre);
+}
+
+.travail h3 {
+  font-size: 17.5px;
+  margin-bottom: 5px;
+}
+
+.travail-auteur {
+  font-size: 13.5px;
+  color: var(--gris-doux);
+  margin-bottom: 14px;
+}
+
+.travail-auteur strong {
+  color: var(--gris-texte);
+}
+
+.travail p {
+  font-size: 14.5px;
+  color: var(--gris-doux);
+}
+
+.travail-resultats {
+  list-style: none;
+  margin: 0 0 16px;
+  padding: 0;
+}
+
+.travail-resultats li {
+  font-size: 14px;
+  padding: 7px 0;
+  border-bottom: 1px solid #eef2f5;
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.travail-resultats li:last-child {
+  border-bottom: none;
+}
+
+.travail-resultats .valeur {
+  font-weight: 700;
+  color: var(--bleu-profond);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.travail .bouton {
+  margin-top: auto;
+  align-self: flex-start;
+}
+
+/* ---------- Frise chronologique ---------- */
+
+.frise {
+  position: relative;
+  margin: 0;
+  padding: 0 0 0 30px;
+  list-style: none;
+  border-left: 2px solid var(--gris-ligne);
+}
+
+.jalon {
+  position: relative;
+  padding-bottom: 26px;
+}
+
+.jalon:last-child {
+  padding-bottom: 0;
+}
+
+.jalon::before {
+  content: '';
+  position: absolute;
+  left: -37px;
+  top: 5px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--blanc);
+  border: 3px solid var(--bleu);
+}
+
+.jalon-fait::before {
+  background: var(--vert-ambroisie);
+  border-color: var(--vert-ambroisie);
+}
+
+.jalon-avenir::before {
+  border-color: #b9c6ce;
+  border-style: dashed;
+}
+
+.jalon-date {
+  font-size: 12.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--bleu);
+  margin-bottom: 3px;
+}
+
+.jalon-avenir .jalon-date {
+  color: var(--gris-doux);
+}
+
+.jalon-texte {
+  font-size: 15px;
+  color: var(--gris-texte);
+}
+
+/* ---------- Groupes de l'équipe ---------- */
+
+.equipe-groupe {
+  margin-bottom: 34px;
+}
+
+.equipe-groupe > h3 {
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--gris-doux);
+  padding-bottom: 9px;
+  border-bottom: 1px solid var(--gris-ligne);
+  margin-bottom: 18px;
+}
+
+.equipe-groupe .equipe {
+  margin-bottom: 0;
+}
+
+.membre-arrivee {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 2px 9px;
+  border-radius: 10px;
+  background: #fff4e0;
+  color: var(--ambre);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.membre-passe {
+  background: var(--fond);
+}
+
+@media (max-width: 620px) {
+  .frise {
+    padding-left: 22px;
+  }
+
+  .jalon::before {
+    left: -29px;
+  }
+
+  .travail-resultats li {
+    flex-direction: column;
+    gap: 2px;
+  }
+}

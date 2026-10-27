@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Ambroisie Québec — Tableau de bord</title>
+
+	<!-- OpenLayers 9.0.0 imports -->
+	<script src="https://cdn.jsdelivr.net/npm/ol@v9.0.0/dist/ol.js"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v9.0.0/ol.css">
+
+	<!-- Jquery 3.5.1 import -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+	<!-- Bootstrap 5.0.2 imports -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+		crossorigin="anonymous"></script>
+	<script src="https://kit.fontawesome.com/101507ea8a.js" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/projet.css">
+	<link rel="manifest" href="manifest.json">
+
+	<!-- Echats -->
+	<script src="https://cdn.jsdelivr.net/npm/echarts@5"></script>
+
+	<!-- Autres -->
+	<meta name="theme-color" content="#3498db">
+	<meta name="mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<meta name="apple-mobile-web-app-title" content="Ambroisie">
+	<link rel="apple-touch-icon" href="icons/icon-192x192.png">
+
+</head>
+
+<body>
+	<!-- Bandeau de projet : retour au site, sélecteur de ville, indicateurs -->
+	<header id="bandeau-projet">
+		<a id="bandeau-retour" href="../../index.html" title="Retour à la page du projet">
+			<i class="fas fa-arrow-left"></i><span>Le projet</span>
+		</a>
+
+		<div id="bandeau-identite">
+			<i class="fas fa-seedling" aria-hidden="true"></i>
+			<div>
+				<div id="bandeau-titre">Cartographie participative de l'herbe à poux</div>
+				<div id="bandeau-sous-titre">Tableau de bord analytique &mdash; <strong>Québec</strong></div>
+			</div>
+		</div>
+
+		<nav id="bandeau-villes" aria-label="Choix de la ville"></nav>
+	</header>
+
+	<!-- Indicateurs clés du jeu d'observations affiché -->
+	<div id="kpi-bar">
+		<div class="kpi"><span class="kpi-valeur" id="kpi-observations">—</span><span class="kpi-libelle">observations</span></div>
+		<div class="kpi"><span class="kpi-valeur" id="kpi-periode">—</span><span class="kpi-libelle">période couverte</span></div>
+		<div class="kpi"><span class="kpi-valeur" id="kpi-saison">—</span><span class="kpi-libelle" id="kpi-saison-libelle">dernière saison</span></div>
+		<div class="kpi"><span class="kpi-valeur" id="kpi-source">—</span><span class="kpi-libelle">source</span></div>
+		<div class="kpi-etat kpi-etat-chargement" id="kpi-etat">Chargement…</div>
+	</div>
+
+	<div class="main-container" id="main-container">
+		<!-- Panneau latéral -->
+		<div id="side-panel">
+			<div id="side-panel-header">
+				<h3 id="side-panel-title">Titre du panneau</h3>
+				<div id="side-panel-close"><i class="fas fa-times"></i></div>
+			</div>
+			<div id="side-panel-content">
+				<!-- Dynamic content goes here -->
+			</div>
+			<div id="side-panel-resizer" class="resizer"></div>
+		</div>
+
+		<!-- La carte  -->
+		<div id="map">
+			<!-- Titre de la carte -->
+			<div id="map-header">Tableau de bord analytique de l'ambroisie à Québec</div>
+
+			<!-- Les boutons d'accès aux différentes fonctionnalités -->
+
+			<div id="map-btn-row">
+				<div id="couches" class="map-btn-box" title="Couches" role="button" tabindex="0" aria-label="Couches"><i class="fas fa-layer-group"></i></div>
+				<div id="basemap" class="map-btn-box" title="Fond de carte" role="button" tabindex="0" aria-label="Fond de carte"><i class="fas fa-map"></i></div>
+				<div id="zoom" class="map-btn-box" title="Zoom par secteur" role="button" tabindex="0" aria-label="Zoom par secteur"><i class="fa fa-binoculars"></i></div>
+				<div id="info" class="map-btn-box" title="Informations" role="button" tabindex="0" aria-label="Informations"><i class="fas fa-info-circle"></i></div>
+				<div id="dashboard" class="map-btn-box" title="Tableau de bord" role="button" tabindex="0" aria-label="Tableau de bord"><i
+						class="fa-sharp fa-solid fa-chart-column"></i></div>
+			</div>
+
+			<!-- Controle de la position de la sourie et échelle -->
+
+			<div id="mouse-position"></div>
+			<div id="scale-container"></div>
+		</div>
+	</div>
+
+
+	<div class="modal fade" id="metadata_routes" tabindex="-1"
+	     aria-labelledby="metadata_routesLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header-trajet">
+					<h5 class="modal-title" id="metadata_routesLabel">
+					    <strong>Métadonnées &mdash; Voies publiques</strong></h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+					        aria-label="Fermer"></button>
+				</div>
+				<div class="modal-body">
+					
+					<h6>Description</h6>
+					<p style="text-align: justify;">Réseau des voies publiques. L'ambroisie colonise volontiers les emprises routières et les abords de chaussée.</p>
+					<p style="text-align: justify;">Emprise : la ville de Québec.</p>
+				</div>
+				<div class="modal-footer">
+					<p><strong>Source :</strong> Ville de Québec, données ouvertes</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="metadata_trajets" tabindex="-1"
+	     aria-labelledby="metadata_trajetsLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header-trajet">
+					<h5 class="modal-title" id="metadata_trajetsLabel">
+					    <strong>Métadonnées &mdash; Trajets de collecte</strong></h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+					        aria-label="Fermer"></button>
+				</div>
+				<div class="modal-body">
+					
+					<h6>Description</h6>
+					<p style="text-align: justify;">Tracés GPS des campagnes de collecte. Ils permettent de cartographier l'absence autant que la présence — une rue parcourue sans observation est une information, pas un vide — ce qui est indispensable à la modélisation.</p>
+					<p style="text-align: justify;">Emprise : la ville de Québec.</p>
+				</div>
+				<div class="modal-footer">
+					<p><strong>Source :</strong> Campagnes de terrain</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="metadata_quartier" tabindex="-1"
+	     aria-labelledby="metadata_quartierLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header-trajet">
+					<h5 class="modal-title" id="metadata_quartierLabel">
+					    <strong>Métadonnées &mdash; Quartiers</strong></h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+					        aria-label="Fermer"></button>
+				</div>
+				<div class="modal-body">
+					
+					<h6>Description</h6>
+					<p style="text-align: justify;">Découpage administratif de la ville de Québec en quartiers. Sert de référentiel pour agréger et comparer les observations d'ambroisie.</p>
+					<p style="text-align: justify;">Emprise : la ville de Québec.</p>
+				</div>
+				<div class="modal-footer">
+					<p><strong>Source :</strong> Ville de Québec, données ouvertes</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Métadonnées de la couche Ambroisie-->
+	<div class="modal fade" id="metadataLayer3" tabindex="-1" aria-labelledby="metadataLayer1Label" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header-ambroisie">
+					<h5 class="modal-title" id="metadataLayer1Label"> <strong>Métadonnées - Ambroisie</strong></h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<h6>Description</h6>
+					<p style="text-align: justify;">Données géospatiales ponctuelles représentant les observations de
+						l’herbe à poux (Ambrosia artemisiifolia) sur le territoire de la ville de Québec.
+						Ces données proviennent de la plateforme d'iNaturalist et sont associées à
+						des photos, permettant la validation taxonomique des
+						observations. Chaque observation est géoréférencée et accompagnée de métadonnées descriptives
+						telles que la date d’observation, le statut de validation et l’observateur.</p>
+					<p style="text-align: justify;"> Les données sont disponibles sous forme de photos ou tabulaire
+						(CSV) et
+						sont accessibles dynamiquement via l’API d’iNaturalist pour leur intégration dans des
+						environnements SIG Web <a href="https://api.inaturalist.org/v1/observations"
+							target="_blank">(https://api.inaturalist.org/v1/observations)</a>.</p>
+					<p style="text-align: justify;"> Dans le cadre de ce projet, ces données constituent la principale
+						source
+						d’information pour l’analyse spatiale et la cartographie de la distribution de l’ambroisie à
+						l’échelle urbaine.</p>
+				</div>
+				<div class="modal-footer">
+					<p><strong>Source:</strong> Collecte de terrain/iNaturalist</p>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+		</div>
+	</div>
+
+		</div>
+	</div>
+
+		</div>
+	</div>
+
+		</div>
+	</div>
+
+	<!-- Métadonnées de la couche du modèle prédictif -->
+	<div class="modal fade" id="metadataLayer8" tabindex="-1" aria-labelledby="metadataLayer8Label" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-lg">
+			<div class="modal-content">
+				<div class="modal-header-ambroisie">
+					<h5 class="modal-title" id="metadataLayer8Label"><strong>Métadonnées &mdash; Modèle prédictif</strong></h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+				</div>
+				<div class="modal-body">
+
+					<div class="alert alert-warning border-0 py-2 px-3 mb-3" style="font-size: 0.85rem;">
+						<i class="fas fa-triangle-exclamation me-1"></i>
+						<strong>Transposition du protocole.</strong> Cette couche applique
+						à Québec le protocole publié dans l'essai de
+						<strong>Wilfix Sagard</strong>, qui portait sur Sherbrooke.
+						Aucune valeur publiée ne permet de juger ce résultat :
+						il sert de point de départ, non de référence.
+					</div>
+
+					<h6>Méthode</h6>
+					<p style="text-align: justify;">Modèle hybride <strong>XGB&ndash;KED</strong> : une
+						probabilité de présence est d'abord prédite par gradient boosting à partir des
+						covariables géo-environnementales, puis intégrée comme <em>dérive externe</em> dans un
+						krigeage. La formulation suit celle de l'essai, <em>Z(s) = β₀ + β₁·d(s) + ε(s)</em> :
+						la prédiction du modèle d'apprentissage entre dans le système géostatistique, elle
+						n'est pas ajoutée à une surface de résidus krigés.</p>
+
+					<h6>Données d'entraînement</h6>
+					<p style="text-align: justify;">Présences validées d'ambroisie et pseudo-absences
+						échantillonnées le long des parcours GPS d'inventaire, à 100 m d'intervalle et hors
+						d'un tampon de 75 m autour des présences. Ce choix, repris de l'essai, écarte le
+						biais des pseudo-absences tirées au hasard : un point sur un parcours parcouru sans
+						observation s'approche d'une absence réelle.</p>
+
+					<h6>Covariables</h6>
+					<p style="text-align: justify;">Indice de végétation (Sentinel-2), élévation, indice
+						d'humidité topographique, distance au réseau routier et affectation du sol.</p>
+
+					<h6>Validation</h6>
+					<p style="text-align: justify;">Validation croisée spatiale par blocs de 800 m,
+						cinq plis, prédictions hors pli. Un découpage aléatoire point par point laisserait
+						des voisins immédiats de part et d'autre de la séparation et gonflerait les scores.
+						Le seuil opérationnel retenu maximise le score F1 hors pli.</p>
+
+					<h6>Les trois vues</h6>
+					<ul style="text-align: justify;">
+						<li><strong>Probabilité de présence</strong> &mdash; sortie du modèle hybride.</li>
+						<li><strong>Incertitude</strong> &mdash; variance de krigeage, normalisée. Elle croît
+							là où les observations se raréfient.</li>
+						<li><strong>Aide à la décision</strong> &mdash; croisement des deux, en quatre
+							situations de gestion. C'est l'apport principal de l'essai : une carte de
+							probabilité seule ne dit pas où l'on peut se fier à elle.</li>
+					</ul>
+
+					<h6>Écarts au protocole de l'essai</h6>
+					<ul style="text-align: justify;">
+						<li>Modèle numérique de terrain canadien (≈ 20 m) au lieu du MNT LiDAR municipal
+							(≈ 1 m), ce qui affecte aussi l'indice d'humidité topographique.</li>
+						<li>Affectation du sol municipale seule, sans la couche provinciale du MRNF avec
+							laquelle l'essai la fusionne.</li>
+						<li>Indice de végétation calculé sur quelques scènes estivales plutôt que sur un
+							composite complet.</li>
+						<li>Résolution de 20 m au lieu de 10 m ; outils Python au lieu de R.</li>
+					</ul>
+					<p style="text-align: justify;">Les métriques obtenues sont affichées dans le panneau
+						des couches, à côté du ROC-AUC de 0,83 rapporté par l'essai. L'écart est présenté
+						tel quel.</p>
+				</div>
+				<div class="modal-footer">
+					<p><strong>Source :</strong> reproduction du protocole de W. Sagard (mai 2026)</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Métadonnées des terrains à potentiel de colonisation -->
+	<div class="modal fade" id="metadataLayer9" tabindex="-1" aria-labelledby="metadataLayer9Label" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-lg">
+			<div class="modal-content">
+				<div class="modal-header-ambroisie">
+					<h5 class="modal-title" id="metadataLayer9Label"><strong>Métadonnées &mdash; Terrains à potentiel de colonisation</strong></h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+				</div>
+				<div class="modal-body">
+
+					<div class="alert alert-warning border-0 py-2 px-3 mb-3" style="font-size: 0.85rem;">
+						<i class="fas fa-triangle-exclamation me-1"></i>
+						Ces terrains sont <strong>à inspecter</strong>, non des terrains nécessairement
+						colonisés. Le rapport dont ils sont issus conclut que leur potentiel de colonisation
+						ne se compare pas d'un territoire à l'autre.
+					</div>
+
+					<h6>Origine</h6>
+					<p style="text-align: justify;">Le ministère de la Santé et des Services sociaux a
+						proposé en 2015 une méthode d'identification des terrains propices à l'herbe à poux
+						fondée sur les <strong>codes d'utilisation des biens-fonds</strong> du rôle
+						d'évaluation foncière, regroupés en sept catégories. Ces catégories ont été validées
+						par l'inspection de <strong>999 terrains</strong> à Beauport, Granby et
+						Pierrefonds-Roxboro.</p>
+
+					<h6>Les sept catégories</h6>
+					<ul style="text-align: justify;">
+						<li><strong>Commerciaux</strong> &mdash; commerces possédant généralement une cour
+							d'entreposage, par exemple les vendeurs de véhicules.</li>
+						<li><strong>Industriels</strong> &mdash; l'ensemble des codes de type industriel.</li>
+						<li><strong>Institutionnels</strong> &mdash; bâtiments religieux, scolaires,
+							résidences pour personnes âgées, établissements de santé.</li>
+						<li><strong>Récréatifs</strong> &mdash; terrains de jeux, parcs et terrains sportifs,
+							à l'exclusion des terrains de golf.</li>
+						<li><strong>Résidentiels haute densité</strong> &mdash; bâtiments d'au moins douze
+							logements. Cette catégorie croise le code d'utilisation avec le nombre de
+							logements déclaré au rôle.</li>
+						<li><strong>Services d'utilité publique</strong> &mdash; infrastructures de
+							transport, d'énergie, d'hygiène et de communications.</li>
+						<li><strong>Vacants</strong> &mdash; terrains non aménagés et non exploités :
+							boisés, friches.</li>
+					</ul>
+
+					<h6>Construction</h6>
+					<p style="text-align: justify;">Les codes retenus par le rapport sont extraits de son
+						annexe et validés contre la table officielle du Manuel d'évaluation foncière du
+						Québec. Ils sont ensuite croisés avec le rôle d'évaluation de la ville, joint à sa
+						couche géolocalisée par le matricule à dix-huit positions &mdash; appariement
+						complet sur les 56 325 unités de Sherbrooke.</p>
+
+					<h6>Une couche de points</h6>
+					<p style="text-align: justify;">Le rôle localise chaque unité d'évaluation par un point,
+						non par le contour de la parcelle : la couche est donc ponctuelle. Restituer les
+						limites exactes des terrains demanderait le cadastre du Québec, une autre source.</p>
+
+					<h6>Ce que dit la confrontation aux observations</h6>
+					<p style="text-align: justify;">À Sherbrooke, <strong>52,6 %</strong> des observations
+						d'ambroisie validées se trouvent à moins de 100 m d'un de ces terrains, contre
+						<strong>0,8 %</strong> pour des points tirés au hasard sur le même territoire. La
+						couche capte donc un signal réel &mdash; sans pour autant établir que ces terrains
+						sont colonisés.</p>
+				</div>
+				<div class="modal-footer">
+					<p><strong>Sources :</strong> MSSS, publication 14-244-03W (2015) ;
+						rôle d'évaluation foncière 2026, ministère des Affaires municipales et de
+						l'Habitation (CC-BY 4.0)</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal de bienvenue - Textes plus grands -->
+	<div class="modal fade" id="welcomeModal" tabindex="-1" aria-labelledby="welcomeModalLabel" aria-hidden="true"
+		data-bs-backdrop="static" data-bs-keyboard="false">
+		<div class="modal-dialog modal-dialog-centered modal-lg">
+			<div class="modal-content">
+
+				<!-- En-tête -->
+				<div class="modal-header py-2 px-4"
+					style="background: linear-gradient(135deg, #1e5f74 0%, #3498db 100%); color: white;">
+					<div class="d-flex align-items-center">
+						<i class="fas fa-seedling fa-2x me-2"></i>
+						<div>
+							<h5 class="modal-title fw-bold" style="font-size: 1.15rem; margin: 0;">Tableau de bord
+								analytique de l'ambroisie</h5>
+							<p class="mb-0" style="font-size: 0.75rem; opacity: 0.9;">Ville de Sherbrooke</p>
+						</div>
+					</div>
+					<button type="button" class="btn-close btn-close-white btn-sm" data-bs-dismiss="modal"
+						aria-label="Fermer"></button>
+				</div>
+
+				<!-- Corps -->
+				<div class="modal-body p-3">
+
+					<!-- Message de bienvenue -->
+					<div class="alert alert-info border-0 rounded-2 py-2 px-3 mb-3"
+						style="background-color: #e8f4fd !important; font-size: 0.85rem;">
+						<i class="fas fa-hand-peace me-1"></i>
+						Bienvenue sur le tableau de bord interactif permettant d'explorer et d'analyser les observations
+						de l'ambroisie (<em>Ambrosia artemisiifolia L.</em>) sur le territoire de la ville de
+						Sherbrooke.
+					</div>
+
+					<!-- Fonctionnalités détaillées -->
+					<div class="row g-2 mb-2">
+						<h6> <i class="fas fa-tools me-2"></i>Fonctionnalités principales</h6>
+						<!-- 1. Couches -->
+						<div class="col-md-6">
+							<div class="d-flex p-1 rounded" style="border-left: 3px solid #3498db;">
+								<i class="fas fa-layer-group fa-fw me-2 mt-1"
+									style="color: #3498db; font-size: 0.9rem;"></i>
+								<div>
+									<strong style="font-size: 0.8rem;">Couches & Légende</strong>
+									<div style="font-size: 0.7rem; color: #6c757d;">Afficher/masquer les couches
+										(ambroisie, types de sol, affectation, arrondissements, secteurs) et consulter
+										la légende.</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- 2. Fond de carte -->
+						<div class="col-md-6">
+							<div class="d-flex p-1 rounded" style="border-left: 3px solid #3498db;">
+								<i class="fas fa-map fa-fw me-2 mt-1" style="color: #3498db; font-size: 0.9rem;"></i>
+								<div>
+									<strong style="font-size: 0.8rem;">Fond de carte</strong>
+									<div style="font-size: 0.7rem; color: #6c757d;">Changer le fond de carte :
+										OpenStreetMap, vue satellite, topographique ou Google Street.</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- 3. Zoom par secteur -->
+						<div class="col-md-6">
+							<div class="d-flex p-1 rounded" style="border-left: 3px solid #3498db;">
+								<i class="fa fa-binoculars fa-fw me-2 mt-1"
+									style="color: #3498db; font-size: 0.9rem;"></i>
+								<div>
+									<strong style="font-size: 0.8rem;">Zoom par secteur</strong>
+									<div style="font-size: 0.7rem; color: #6c757d;">Naviguer rapidement vers un secteur
+										spécifique de ville de Sherbrooke.</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- 4. Informations -->
+						<div class="col-md-6">
+							<div class="d-flex p-1 rounded" style="border-left: 3px solid #3498db;">
+								<i class="fas fa-info-circle fa-fw me-2 mt-1"
+									style="color: #3498db; font-size: 0.9rem;"></i>
+								<div>
+									<strong style="font-size: 0.8rem;">Informations</strong>
+									<div style="font-size: 0.7rem; color: #6c757d;">Consulter le contexte du projet, les
+										objectifs ainsi que les personnes de contact.</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- 5. Analyses -->
+						<div class="col-md-6">
+							<div class="d-flex p-1 rounded" style="border-left: 3px solid #3498db;">
+								<i class="fa-sharp fa-solid fa-chart-column fa-fw me-2 mt-1"
+									style="color: #3498db; font-size: 0.9rem;"></i>
+								<div>
+									<strong style="font-size: 0.8rem;">Analyses</strong>
+									<div style="font-size: 0.7rem; color: #6c757d;">Visualiser la répartition (par type
+										de sol, affectation, arrondissement ou secteur) et l'évolution spatio-temporelle des observations.</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- 6. Autour de moi -->
+						<div class="col-md-6">
+							<div class="d-flex p-1 rounded" style="border-left: 3px solid #3498db;">
+								<i class="fas fa-draw-polygon fa-fw me-2 mt-1"
+									style="color: #3498db; font-size: 0.9rem;"></i>
+								<div>
+									<strong style="font-size: 0.8rem;">Autour de moi</strong>
+									<div style="font-size: 0.7rem; color: #6c757d;">Analyse par zone tampon de 100 à
+										1000 mètres autour d'une adresse ou d'un point sur la carte.</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<hr class="my-2">
+
+					<!-- Guide, source et version -->
+					<div class="d-flex flex-wrap justify-content-between align-items-center"
+						style="font-size: 0.75rem;">
+						<div><i class="fas fa-book-open me-1"></i> <a href="../sherbrooke/guide.html"> Guide
+								d'utilisation complet</a></div>
+						<div><i class="fas fa-database me-1"></i> Données : iNaturalist API</div>
+						<div><i class="fas fa-code-branch me-1"></i> Version 2.1 (Août 2026)</div>
+					</div>
+				</div>
+
+				<!-- Pied -->
+				<div class="modal-footer justify-content-center py-3" style="border-top: none;">
+					<button type="button" class="btn btn-primary px-5 py-2 rounded-pill" data-bs-dismiss="modal"
+						id="closeWelcomeModal">
+						<i class="fas fa-check me-2"></i> Commencer l'exploration
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Liens vers le script séparé -->
+	<script src="js/config-ville.js"></script>
+	<script src="js/bandeau.js"></script>
+	<script src="js/script.js"></script>
+	<script src="js/prediction.js"></script>
+	<script src="js/terrains.js"></script>
+	<script>
+		if ('serviceWorker' in navigator) {
+			window.addEventListener('load', () => {
+				navigator.serviceWorker.register('serviceworker.js')
+					.then(reg => console.log('Service worker enregistré', reg))
+					// Certains contextes (file://, navigateurs intégrés) refusent les
+					// service workers : le tableau de bord fonctionne sans, on n'alarme
+					// donc pas l'utilisateur avec une erreur.
+					.catch(err => console.info('Service worker non disponible dans ce contexte :', err.message));
+			});
+		}
+	</script>
+	<!-- ===== CODE POUR LE MODAL DE BIENVENUE ===== -->
+	<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const estPageGuide = window.location.pathname.includes('guide.html');
+        // Une fois l'accueil parcouru, on ne le réimpose pas à chaque rechargement.
+        const dejaVu = localStorage.getItem('ambroisie-accueil-vu') === '1';
+        const forcer = new URLSearchParams(location.search).has('accueil');
+
+        if (estPageGuide || (dejaVu && !forcer)) return;
+
+        setTimeout(function () {
+            const el = document.getElementById('welcomeModal');
+            if (!el) return;
+            new bootstrap.Modal(el).show();
+            localStorage.setItem('ambroisie-accueil-vu', '1');
+        }, 200);
+    });
+
+    // Le bouton « Informations » permet de revoir l'accueil à la demande.
+    document.addEventListener('keydown', function (e) {
+        if (e.key !== 'Enter' && e.key !== ' ') return;
+        const cible = document.activeElement;
+        if (cible && cible.classList && cible.classList.contains('map-btn-box')) {
+            e.preventDefault();
+            cible.click();
+        }
+    });
+</script>
+</body>
+
+</html>

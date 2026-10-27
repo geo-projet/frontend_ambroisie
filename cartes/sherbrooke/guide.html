@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Guide d'utilisation - Tableau de bord Ambroisie</title>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/guide.css">
+
+    <!-- Police et icônes -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Lightbox pour les images -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- ==================== EN-TÊTE ==================== -->
+        <header class="header">
+            <a href="#" class="back-link" id="backLink">
+                <i class="fas fa-arrow-left"></i> Retour au tableau de bord
+            </a>
+            <div class="header-content">
+                <i class="fas fa-seedling header-icon"></i>
+                <h1>📖 Guide d'utilisation du tableau de bord</h1>
+                <p class="subtitle">Analyse et visualisation des données de l'ambroisie &mdash; Sherbrooke, Montréal, Québec</p>
+            </div>
+        </header>
+
+        <!-- ==================== SOMMAIRE ==================== -->
+        <nav class="summary">
+            <h3><i class="fas fa-list"></i> Sommaire</h3>
+            <ul>
+                <li><a href="#section1">1. Pourquoi ce tableau de bord ?</a></li>
+                <li><a href="#section2">2. Accès au tableau de bord</a></li>
+                <li><a href="#section3">3. L'interface cartographique</a></li>
+                <li><a href="#section4">4. Panneau latéral ou inférieur</a></li>
+                <li><a href="#section5">5. Le menu des icônes</a></li>
+                <li><a href="#section6">6. Utilisation de la carte</a></li>
+                <li><a href="#section7">7. Les analyses (Tableau de bord)</a></li>
+                <li><a href="#section-cas">8. Cas d'usage concrets</a></li>
+            </ul>
+        </nav>
+
+        <!-- ==================== SECTION 1 ==================== -->
+        <section id="section1" class="section">
+            <h2><span class="section-number">1.</span> Pourquoi ce tableau de bord ?</h2>
+            <div class="card">
+                <div class="card-icon"><i class="fas fa-chart-line"></i></div>
+                <div class="card-content">
+                    <p>Ce tableau de bord est un <strong>outil en ligne gratuit</strong> qui permet de visualiser et
+                        d'analyser la présence de <strong>l'ambroisie (herbe à poux)</strong> sur le territoire des
+                        trois villes du projet : Sherbrooke, Montréal et Québec.</p>
+                    <p class="note-gabarit"><i class="fas fa-circle-info"></i> <strong>Un guide pour trois
+                        cartes.</strong> Les captures d'écran de ce guide viennent de Sherbrooke, la première ville
+                        livrée. Les trois cartes partagent le même fonctionnement, mais chaque ville ne propose que
+                        les couches que publie sa municipalité : le panneau <em>Informations</em> de chaque carte en
+                        dresse la liste.</p>
+                    <p>C'est un outil essentiel pour faciliter la prise de décision en matière d'éradication de cette
+                        espèce allergène.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SECTION 2 ==================== -->
+        <section id="section2" class="section">
+            <h2><span class="section-number">2.</span> Accès au tableau de bord</h2>
+            <div class="access-table">
+                <div class="access-item">
+                    <i class="fas fa-globe"></i>
+                    <strong>Les cartes :</strong>
+                    <span><a href="../sherbrooke/index.html">Sherbrooke</a>,
+                        <a href="../montreal/index.html">Montréal</a>,
+                        <a href="../quebec/index.html">Québec</a> &mdash; depuis la
+                        <a href="../../index.html">page du projet</a></span>
+                </div>
+                <div class="access-item">
+                    <i class="fas fa-laptop"></i>
+                    <strong>Appareil :</strong>
+                    <span>Ordinateur, tablette ou téléphone intelligent</span>
+                </div>
+                <div class="access-item">
+                    <i class="fas fa-browser"></i>
+                    <strong>Navigateur :</strong>
+                    <span>Chrome, Firefox, Edge, Safari, etc. Vous pouvez aussi le télécharger sur votre appareil dès
+                        votre première connexion. Un bouton apparaitra dans la barre d'adresse vous demandant si vous
+                        voulez l'installer.</span>
+                </div>
+                <div class="access-item">
+                    <i class="fas fa-wifi"></i>
+                    <strong>Connexion internet :</strong>
+                    <span>Recommandée (min. 5 Mb/s pour un affichage fluide)</span>
+                </div>
+                <div class="access-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <strong>Géolocalisation :</strong>
+                    <span>Optionnelle - Utiliser uniquement pour l'outil « autour de moi »</span>
+                </div>
+            </div>
+            <div class="screenshot">
+                <h3><i class="fas fa-image"></i> Aperçu de la page d'accueil</h3>
+                <a href="screenshots/accueil.jpg" data-lightbox="screenshots"
+                    data-title="Page d'accueil du tableau de bord">
+                    <img src="screenshots/accueil.jpg" alt="Page d'accueil" class="screenshot-img">
+                </a>
+                <p class="caption">Interface principale du tableau de bord avec la carte et le panneau d'analyse</p>
+            </div>
+        </section>
+
+        <!-- ==================== SECTION 3 ==================== -->
+        <section id="section3" class="section">
+            <h2><span class="section-number">3.</span> L'interface cartographique</h2>
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-icon"><i class="fas fa-map"></i></div>
+                    <h3>Caractéristiques</h3>
+                    <ul>
+                        <li>Occupe 65% de l'écran quand le panneau latéral est ouvert</li>
+                        <li>Affiche un fond de carte (OSM par défaut)</li>
+                        <li>Les <span class="highlight-green">points verts</span> représentent les observations
+                            d'ambroisie</li>
+                        <li>Cliquez sur un point pour voir la photo et la date</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-icon"><i class="fas fa-mouse-pointer"></i></div>
+                    <h3>Actions possibles</h3>
+                    <ul>
+                        <li><strong>Déplacer</strong> : Glisser la souris ou le doigt</li>
+                        <li><strong>Zoomer</strong> : Molette ou pincer</li>
+                        <li><strong>Consulter</strong> : Cliquer sur un point vert</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="screenshot">
+                <h3><i class="fas fa-image"></i> Visualisation des observations</h3>
+                <a href="screenshots/observations.jpg" data-lightbox="screenshots"
+                    data-title="Observations d'ambroisie sur la carte">
+                    <img src="screenshots/observations.jpg" alt="Observations" class="screenshot-img">
+                </a>
+                <p class="caption">Les points verts représentent les observations d'ambroisie à Sherbrooke</p>
+            </div>
+            <div class="screenshot">
+                <h3><i class="fas fa-image"></i> Consultation d'une observation</h3>
+                <a href="screenshots/popup.jpg" data-lightbox="screenshots" data-title="Popup d'information">
+                    <img src="screenshots/popup.jpg" alt="Popup information" class="screenshot-img">
+                </a>
+                <p class="caption">En cliquant sur un point, une fenêtre affiche la photo et la date d'observation</p>
+            </div>
+        </section>
+
+        <!-- ==================== SECTION 4 ==================== -->
+        <section id="section4" class="section">
+            <h2><span class="section-number">4.</span> Panneau latéral ou inférieur</h2>
+            <div class="notice">
+                <i class="fas fa-info-circle"></i>
+                <div>
+                    <strong>Adaptation automatique :</strong>
+                    Sur ordinateur, le panneau s'affiche à gauche de la carte. Sur téléphone (portrait), il se
+                    positionne en bas.
+                </div>
+            </div>
+            <div class="grid-2">
+                <div class="card">
+                    <i class="fas fa-desktop"></i>
+                    <h3>Ordinateur / Tablette paysage</h3>
+                    <p>Panneau à gauche, carte à droite. Le panneau est redimensionnable en largeur.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h3>Mobile portrait</h3>
+                    <p>Panneau en bas de l'écran, carte en haut. Idéal pour visualiser la carte en grand.</p>
+                </div>
+            </div>
+            <div class="screenshot-row">
+                <div class="screenshot-half">
+                    <a href="screenshots/ordinateur.jpg" data-lightbox="screenshots" data-title="Vue sur ordinateur">
+                        <img src="screenshots/ordinateur.jpg" alt="Vue ordinateur" class="screenshot-img">
+                    </a>
+                    <p class="caption">Vue sur ordinateur (panneau à gauche)</p>
+                </div>
+                <div class="screenshot-half">
+                    <a href="screenshots/mobile.jpg" data-lightbox="screenshots" data-title="Vue sur mobile">
+                        <img src="screenshots/mobile.jpg" alt="Vue mobile" class="screenshot-img">
+                    </a>
+                    <p class="caption">Vue sur mobile (panneau en bas)</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SECTION 5 ==================== -->
+        <section id="section5" class="section">
+            <h2><span class="section-number">5.</span> Le menu des icônes</h2>
+            <div class="icons-grid">
+                <div class="icon-card">
+                    <div class="icon-circle"><i class="fas fa-layer-group"></i></div>
+                    <h4>Couches & Légende</h4>
+                    <p>Afficher/masquer les informations supplémentaires et comprendre les couleurs/symboles</p>
+                </div>
+                <div class="icon-card">
+                    <div class="icon-circle"><i class="fas fa-map"></i></div>
+                    <h4>Fond de carte</h4>
+                    <p>Changer le fond de carte (OSM, satellite, topographique)</p>
+                </div>
+                <div class="icon-card">
+                    <div class="icon-circle"><i class="fas fa-binoculars"></i></div>
+                    <h4>Zoom secteur</h4>
+                    <p>Se déplacer rapidement vers un quartier spécifique</p>
+                </div>
+                <div class="icon-card">
+                    <div class="icon-circle"><i class="fas fa-info-circle"></i></div>
+                    <h4>Informations</h4>
+                    <p>Contexte du projet et contacts</p>
+                </div>
+                <div class="icon-card">
+                    <div class="icon-circle"><i class="fas fa-chart-column"></i></div>
+                    <h4>Analyses</h4>
+                    <p>Ouvrir les outils d'analyse statistique</p>
+                </div>
+            </div>
+            <div class="screenshot">
+                <h3><i class="fas fa-image"></i> Menu des fonctionnalités</h3>
+                <a href="screenshots/menu-icons.jpg" data-lightbox="screenshots" data-title="Menu des icônes">
+                    <img src="screenshots/menu-icons.jpg" alt="Menu des icônes" class="screenshot-img">
+                </a>
+                <p class="caption">Les 5 boutons principaux pour accéder aux fonctionnalités</p>
+            </div>
+        </section>
+
+        <!-- ==================== SECTION 6 ==================== -->
+        <section id="section6" class="section">
+            <h2><span class="section-number">6.</span> Utilisation de la carte</h2>
+
+            <h3>6.1 Se déplacer sur la carte</h3>
+            <table class="actions-table">
+                <thead>
+                    <tr>
+                        <th>Action</th>
+                        <th>Résultat</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Clic gauche maintenu + déplacer</td>
+                        <td>Déplacer la carte (panoramique)</td>
+                    </tr>
+                    <tr>
+                        <td>Toucher (mobile) + glisser</td>
+                        <td>Déplacer la carte</td>
+                    </tr>
+                    <tr>
+                        <td>Molette de souris</td>
+                        <td>Zoom avant/arrière</td>
+                    </tr>
+                    <tr>
+                        <td>Pincer (mobile)</td>
+                        <td>Zoom avant/arrière</td>
+                    </tr>
+                    <tr>
+                        <td>Double-clic</td>
+                        <td>Zoom centré sur l'endroit</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>6.2 Changer le fond de carte</h3>
+            <div class="screenshot-mini">
+                <a href="screenshots/basemap.jpg" data-lightbox="screenshots" data-title="Changement du fond de carte">
+                    <img src="screenshots/basemap.jpg" alt="Fond de carte" class="screenshot-mini-img">
+                </a>
+                <p>Cliquez sur l'icône <i class="fas fa-map"></i> → choisissez parmi 4 options : OSM, Satellite,
+                    Topographique, Google Street.</p>
+            </div>
+
+            <h3>6.3 Afficher/masquer des couches</h3>
+            <div class="screenshot-mini">
+                <a href="screenshots/layers.jpg" data-lightbox="screenshots" data-title="Gestion des couches">
+                    <img src="screenshots/layers.jpg" alt="Gestion des couches" class="screenshot-mini-img">
+                </a>
+                <p>Cliquez sur l'icône <i class="fas fa-layer-group"></i> → cochez/décochez les cases pour
+                    activer/désactiver les couches.</p>
+            </div>
+
+            <h3>6.4 Comprendre la légende</h3>
+            <div class="screenshot-mini">
+                <a href="screenshots/legend.jpg" data-lightbox="screenshots" data-title="Légende des couleurs">
+                    <img src="screenshots/legend.jpg" alt="Légende" class="screenshot-mini-img">
+                </a>
+                <p>La section <strong>Légende</strong> explique la signification des couleurs et symboles pour chaque
+                    couche.</p>
+            </div>
+        </section>
+
+        <!-- ==================== SECTION 7 ==================== -->
+        <section id="section7" class="section">
+            <h2><span class="section-number">7.</span> Les analyses (Tableau de bord)</h2>
+            <p class="lead">Cliquez sur l'icône <i class="fas fa-chart-column"></i> pour ouvrir le panneau d'analyse.
+                Trois onglets sont disponibles :</p>
+
+            <!-- 7.1 Onglet Répartition -->
+            <div class="feature-box">
+                <h3><i class="fas fa-chart-pie"></i> 7.1 Onglet « Répartition »</h3>
+                <p>Comparez le nombre d'observations selon : type de sol, affectation, arrondissement ou secteur.</p>
+
+                <div class="screenshot-grid">
+                    <div class="screenshot-grid-item">
+                        <a href="screenshots/repartition-sol.jpg" data-lightbox="analyses"
+                            data-title="Répartition par type de sol">
+                            <img src="screenshots/repartition-sol.jpg" alt="Type de sol" class="screenshot-img-small">
+                        </a>
+                        <p>Par type de sol</p>
+                    </div>
+                    <div class="screenshot-grid-item">
+                        <a href="screenshots/repartition-affectation.jpg" data-lightbox="analyses"
+                            data-title="Répartition par affectation des sols">
+                            <img src="screenshots/repartition-affectation.jpg" alt="Affectation"
+                                class="screenshot-img-small">
+                        </a>
+                        <p>Par affectation</p>
+                    </div>
+                    <div class="screenshot-grid-item">
+                        <a href="screenshots/repartition-arrondissement.jpg" data-lightbox="analyses"
+                            data-title="Répartition par arrondissement">
+                            <img src="screenshots/repartition-arrondissement.jpg" alt="Arrondissement"
+                                class="screenshot-img-small">
+                        </a>
+                        <p>Par arrondissement</p>
+                    </div>
+                </div>
+                <p class="caption"><strong>Astuce :</strong> Passez la souris sur une barre pour voir le nombre exact
+                    d'observations.</p>
+            </div>
+
+            <!-- 7.2 Onglet Autour de moi -->
+            <div class="feature-box">
+                <h3><i class="fas fa-draw-polygon"></i> 7.2 Onglet « Autour de moi »</h3>
+
+                <div class="screenshot">
+                    <a href="screenshots/autour-de-moi.jpg" data-lightbox="analyses" data-title="Outil Autour de moi">
+                        <img src="screenshots/autour-de-moi.jpg" alt="Autour de moi" class="screenshot-img">
+                    </a>
+                    <p class="caption">Interface complète de l'outil "Autour de moi"</p>
+                </div>
+
+                <h4><i class="fas fa-ruler-combined"></i> Choisir le rayon</h4>
+                <div class="radius-options">
+                    <span>100 m</span><span>250 m</span><span>400 m (par défaut)</span><span>500 m</span><span>1000
+                        m</span>
+                </div>
+
+                <div class="screenshot-mini">
+                    <a href="screenshots/rayon.jpg" data-lightbox="analyses" data-title="Sélection du rayon">
+                        <img src="screenshots/rayon.jpg" alt="Rayon" class="screenshot-mini-img">
+                    </a>
+                    <p>Ajustez le rayon à l'aide du curseur</p>
+                </div>
+
+                <h4><i class="fas fa-map-pin"></i> Choisir le point central (3 méthodes)</h4>
+                <ul>
+                    <li><strong>Saisir une adresse :</strong> tapez l'adresse → cliquez sur "Rechercher"</li>
+                    <li><strong>Me localiser :</strong> cliquez sur "Me localiser" → autorisez la géolocalisation</li>
+                    <li><strong>Cliquer sur la carte :</strong> cliquez directement n'importe où</li>
+                </ul>
+
+                <div class="screenshot-mini">
+                    <a href="screenshots/recherche-adresse.png" data-lightbox="analyses"
+                        data-title="Recherche d'adresse">
+                        <img src="screenshots/recherche-adresse.png" alt="Recherche adresse"
+                            class="screenshot-mini-img">
+                    </a>
+                    <p>Exemple de recherche d'adresse avec suggestions</p>
+                </div>
+
+                <div class="screenshot-mini">
+                    <a href="screenshots/buffer-zone.jpg" data-lightbox="analyses" data-title="Zone tampon">
+                        <img src="screenshots/buffer-zone.jpg" alt="Zone tampon" class="screenshot-mini-img">
+                    </a>
+                    <p>Visualisation de la zone tampon (cercle bleu)</p>
+                </div>
+
+                <h4><i class="fas fa-chart-simple"></i> Résultats affichés</h4>
+                <div class="screenshot-grid-2">
+                    <div class="screenshot-grid-item">
+                        <a href="screenshots/gauge.jpg" data-lightbox="analyses"
+                            data-title="Jauge du nombre d'observations">
+                            <img src="screenshots/gauge.jpg" alt="Jauge" class="screenshot-img-small">
+                        </a>
+                        <p>Jauge : nombre total d'observations</p>
+                    </div>
+                    <div class="screenshot-grid-item">
+                        <a href="screenshots/evolution-annuelle_buffer.jpg" data-lightbox="analyses"
+                            data-title="Évolution annuelle dans la zone">
+                            <img src="screenshots/evolution-annuelle_buffer.jpg" alt="Évolution annuelle"
+                                class="screenshot-img-small">
+                        </a>
+                        <p>Graphique d'évolution annuelle</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 7.3 Onglet Évolution -->
+            <div class="feature-box">
+                <h3><i class="fas fa-chart-line"></i> 7.3 Onglet « Évolution »</h3>
+
+                <div class="screenshot-grid-2">
+                    <div class="screenshot-grid-item">
+                        <a href="screenshots/evolution-mensuelle.jpg" data-lightbox="analyses"
+                            data-title="Évolution mensuelle">
+                            <img src="screenshots/evolution-mensuelle.jpg" alt="Évolution mensuelle"
+                                class="screenshot-img-small">
+                        </a>
+                        <h4>Évolution mensuelle</h4>
+                        <p>Nombre d'observations par mois (juin à octobre).<br>
+                            <strong>Pic :</strong> juillet à octobre (période de pollinisation).
+                        </p>
+                    </div>
+                    <div class="screenshot-grid-item">
+                        <a href="screenshots/evolution-annuelle.jpg" data-lightbox="analyses"
+                            data-title="Évolution annuelle">
+                            <img src="screenshots/evolution-annuelle.jpg" alt="Évolution annuelle"
+                                class="screenshot-img-small">
+                        </a>
+                        <h4>Évolution annuelle</h4>
+                        <p>Courbe du nombre d'observations année après année.<br>
+                            <strong>Interprétation :</strong> Une courbe ascendante indique une progression.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SECTION 8 ==================== -->
+        <section id="section-cas" class="section">
+            <h2><span class="section-number">8.</span> Cas d'usage concrets</h2>
+            <p class="lead">Découvrez comment utiliser le tableau de bord à travers des situations réelles.</p>
+
+            <!-- Cas 1 - Citoyen allergique -->
+            <div class="cas-usage">
+                <div class="cas-header">
+                    <div class="cas-icon"><i class="fas fa-allergies"></i></div>
+                    <div>
+                        <h3>Cas 1 – Citoyen allergique : évaluer le risque autour de son domicile</h3>
+                        <p class="cas-subtitle">Objectif : Connaître le niveau de risque d'allergie près de chez soi</p>
+                    </div>
+                </div>
+                <div class="steps-table">
+                    <thead>
+                        <tr>
+                            <th>Étape </th>
+                            <th>Action: </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1- </td>
+                            <td>Cliquer sur l'icône <i class="fas fa-chart-column"></i> <strong>Analyses</strong></td>
+                        </tr>
+                        <tr>
+                            <td>2- </td>
+                            <td>Aller dans l'onglet <strong>« Autour de moi »</strong></td>
+                        </tr>
+                        <tr>
+                            <td>3- </td>
+                            <td>Choisir le rayon <strong>250 m</strong> (ajustez selon vos besoins)</td>
+                        </tr>
+                        <tr>
+                            <td>4- </td>
+                            <td>Saisir son <strong>adresse complète</strong> (numéro, rue, ville, code postal)</td>
+                        </tr>
+                        <tr>
+                            <td>5- </td>
+                            <td>Lire le <strong>nombre d'observations</strong> dans la zone</td>
+                        </tr>
+                        <tr>
+                            <td>6- </td>
+                            <td>Consulter le <strong>graphique d'évolution annuelle</strong> pour voir la tendance</td>
+                        </tr>
+                    </tbody>
+                    </table>
+                    <div class="cas-decision">
+                        <i class="fas fa-lightbulb"></i>
+                        <strong>Décision possible :</strong> S'il y a beaucoup d'observations, fermer les fenêtres
+                        pendant la période de pollinisation (août-septembre), ou signaler des pieds d'ambroisie dans son
+                        quartier sur iNaturalist.
+                    </div>
+                </div>
+
+                <!-- Cas 2 - Gestionnaire municipal -->
+                <div class="cas-usage">
+                    <div class="cas-header">
+                        <div class="cas-icon"><i class="fas fa-city"></i></div>
+                        <div>
+                            <h3>Cas 2 – Gestionnaire municipal : prioriser un arrondissement/secteur pour l'arrachage
+                            </h3>
+                            <p class="cas-subtitle">Objectif : Identifier le secteur le plus touché pour optimiser les
+                                interventions</p>
+                        </div>
+                    </div>
+                    <div class="steps-table">
+                        <thead>
+                            <tr>
+                                <th>Étape </th>
+                                <th>Action: </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1- </td>
+                                <td>Cliquer sur <i class="fas fa-chart-column"></i> <strong>Analyses</strong> → onglet
+                                    <strong>« Répartition »</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2- </td>
+                                <td>Sélectionner <strong>« Par secteur »</strong> dans la liste déroulante</td>
+                            </tr>
+                            <tr>
+                                <td>3- </td>
+                                <td>Identifier le secteur avec la <strong>barre la plus haute</strong> du graphique</td>
+                            </tr>
+                            <tr>
+                                <td>4- </td>
+                                <td>Activer la couche <strong>« Secteur »</strong> (icône <i
+                                        class="fas fa-layer-group"></i>) pour visualiser les limites</td>
+                            </tr>
+                            <tr>
+                                <td>5- </td>
+                                <td>Utiliser <i class="fas fa-binoculars"></i> <strong>Zoom secteur</strong> pour aller
+                                    directement dans ce secteur</td>
+                            </tr>
+                            <tr>
+                                <td>6- </td>
+                                <td>Planifier les <strong>équipes d'arrachage</strong> sur ce secteur prioritaire</td>
+                            </tr>
+                        </tbody>
+                        </table>
+                        <div class="cas-decision">
+                            <i class="fas fa-lightbulb"></i>
+                            <strong>Décision possible :</strong> Concentrer les ressources financières et humaines sur
+                            l'arrondissement le plus touché pour maximiser l'impact des actions d'éradication.
+                        </div>
+                    </div>
+
+                    <!-- Cas 3 - Chercheur / étudiant -->
+                    <div class="cas-usage">
+                        <div class="cas-header">
+                            <div class="cas-icon"><i class="fas fa-graduation-cap"></i></div>
+                            <div>
+                                <h3>Cas 3 – Chercheur / étudiant : analyser le lien entre type de sol et présence
+                                    d'ambroisie</h3>
+                                <p class="cas-subtitle">Objectif : Comprendre les facteurs environnementaux favorisant
+                                    l'ambroisie</p>
+                            </div>
+                        </div>
+                        <div class="steps-table">
+                            <thead>
+                                <tr>
+                                    <th>Étape </th>
+                                    <th>Action: </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1- </td>
+                                    <td>Activer la couche <strong>« Types de sols »</strong> (icône <i
+                                            class="fas fa-layer-group"></i>)</td>
+                                </tr>
+                                <tr>
+                                    <td>2- </td>
+                                    <td>Cliquer sur <i class="fas fa-chart-column"></i> <strong>Analyses</strong> →
+                                        onglet <strong>« Répartition »</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>3- </td>
+                                    <td>Sélectionner <strong>« Par type de sol »</strong> dans la liste déroulante</td>
+                                </tr>
+                                <tr>
+                                    <td>4- </td>
+                                    <td>Identifier les <strong>sols avec le plus d'observations</strong> (barres les
+                                        plus hautes)</td>
+                                </tr>
+                                <tr>
+                                    <td>5- </td>
+                                    <td>Sur la carte, <strong>observer les zones</strong> correspondant à ces types de
+                                        sols</td>
+                                </tr>
+                                <tr>
+                                    <td>6- </td>
+                                    <td>Comparer avec les <strong>secteurs urbanisés</strong> (couche Affectation des
+                                        sols)</td>
+                                </tr>
+                            </tbody>
+                            </table>
+                            <div class="cas-decision">
+                                <i class="fas fa-lightbulb"></i>
+                                <strong>Découverte possible :</strong> L'ambroisie se développe davantage dans les sols
+                                sableux et les milieux anthropisés (bords de routes, friches, zones urbaines).
+                            </div>
+                        </div>
+
+                        <!-- Cas 4 - École / sensibilisation -->
+                        <div class="cas-usage">
+                            <div class="cas-header">
+                                <div class="cas-icon"><i class="fas fa-school"></i></div>
+                                <div>
+                                    <h3>Cas 4 – École / sensibilisation : montrer l'évolution temporelle</h3>
+                                    <p class="cas-subtitle">Objectif : Sensibiliser sur les périodes à risque et
+                                        l'évolution dans le temps</p>
+                                </div>
+                            </div>
+                            <div class="steps-table">
+                                <thead>
+                                    <tr>
+                                        <th>Étape </th>
+                                        <th>Action: </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1- </td>
+                                        <td>Cliquer sur <i class="fas fa-chart-column"></i> <strong>Analyses</strong> →
+                                            onglet <strong>« Évolution »</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>2- </td>
+                                        <td>Montrer le <strong>graphique mensuel</strong> : expliquer le pic en
+                                            <strong>août-septembre</strong> (période de pollinisation)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>3- </td>
+                                        <td>Montrer le <strong>graphique annuel</strong> : expliquer la tendance (hausse
+                                            ou baisse selon les années)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>4- </td>
+                                        <td>Basculer sur la carte avec la couche <strong>« Observations »</strong>
+                                            activée</td>
+                                    </tr>
+                                    <tr>
+                                        <td>5- </td>
+                                        <td>Zoomer sur <strong>différents arrondissements</strong> pour comparer les
+                                            densités</td>
+                                    </tr>
+                                    <tr>
+                                        <td>6- </td>
+                                        <td>Discuter des <strong>actions de prévention</strong> possibles (arrachage,
+                                            tonte, sensibilisation)</td>
+                                    </tr>
+                                </tbody>
+                                </table>
+                                <div class="cas-decision">
+                                    <i class="fas fa-lightbulb"></i>
+                                    <strong>Message clé :</strong> La période août-septembre est critique pour les
+                                    personnes allergiques. Les actions d'arrachage sont plus efficaces avant la
+                                    floraison (mai-juin).
+                                </div>
+                            </div>
+        </section>
+
+        <!-- ==================== FOOTER ==================== -->
+        <footer class="footer">
+            <p><i class="far fa-copyright"></i> 2026 - Fritzno Louis - Université de Sherbrooke</p>
+            <p>Version 2.0 - Guide d'utilisation du tableau de bord d'analyse de l'ambroisie</p>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/guide.js"></script>
+
+    <!-- Pour le PWA -->
+    <script>
+        (function () {
+            // Obtenir le chemin racine de l'application
+            const getRootPath = () => {
+                const path = window.location.pathname;
+                // Retirer 'guide.html' ou 'guide/' du chemin
+                if (path.includes('guide.html')) {
+                    return path.substring(0, path.lastIndexOf('/') + 1);
+                }
+                if (path.includes('/guide/')) {
+                    return path.substring(0, path.lastIndexOf('/guide/') + 1);
+                }
+                return './';
+            };
+
+            const rootPath = getRootPath();
+            const indexUrl = rootPath + 'index.html';
+
+            console.log('Redirection vers:', indexUrl);
+
+            document.getElementById('backLink').addEventListener('click', function (e) {
+                e.preventDefault();
+                window.location.href = indexUrl;
+            });
+        })();
+    </script>
+</body>
+
+</html>
